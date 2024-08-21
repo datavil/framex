@@ -1,5 +1,13 @@
+import polars as pl
+
 import frames as fx
 
-titanic = fx.load("titanic")
+if __name__ == "__main__":
+    # test 1: DataFrame eager
+    titanic_eager = fx.load("titanic")
+    assert type(titanic_eager) is pl.DataFrame
+    titanic_lazy = fx.load("titanic", lazy=True)
+    assert type(titanic_lazy) is pl.LazyFrame
 
-print(titanic.head())
+    print(titanic_eager.head())
+    print(titanic_lazy.collect().head())

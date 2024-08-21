@@ -1,30 +1,15 @@
 from __future__ import annotations
 
-import os
+from pathlib import Path
 from typing import TYPE_CHECKING
 
 from polars import read_ipc, scan_ipc
 
+from frames._dicts import _DATASETS, _LOCAL_CACHES, _REMOTE_DATASETS
+from frames._dicts._constants import _LOCAL_DIR
+
 if TYPE_CHECKING:
     from polars import DataFrame, LazyFrame
-
-_LOCAL_FOLDER = os.path.join(os.path.dirname(__file__), "") if __file__ else os.getcwd()
-_REMOTE_FOLDER = "https://github.com/Zaf4/datasets/raw/main/feather/" # for tests
-#_REMOTE_FOLDER="https://github.com/pola-rs/polars/raw/main/examples/datasets/"
-_EXTENSION = ".feather"
-
-_DATASETS = {
-    "iris": f"{_REMOTE_FOLDER}iris{_EXTENSION}",
-    "mpg": f"{_REMOTE_FOLDER}mpg{_EXTENSION}",
-    "netflix": f"{_REMOTE_FOLDER}netflix{_EXTENSION}",
-    "starbucks": f"{_REMOTE_FOLDER}starbucks{_EXTENSION}",
-    "titanic": f"{_REMOTE_FOLDER}titanic{_EXTENSION}",
-}
-
-_LOCAL_PATHS = {
-    name: path.replace(_REMOTE_FOLDER, _LOCAL_FOLDER)
-    for name, path in _DATASETS.items()
-}
 
 
 def load(
@@ -60,10 +45,10 @@ def load(
         msg = f"Dataset {name} not found."
         raise ValueError(msg)
 
-    local_path = _LOCAL_PATHS.get(name)
+    local_path = _LOCAL_CACHES.get(name)
     # load the dataset
     if check_local:
-        if os.path.exists(local_path):
+        if Path(local_path).exists():
             frame = loader(local_path)
         else:
             frame = loader(_DATASETS.get(name))
@@ -71,14 +56,12 @@ def load(
         frame = loader(_DATASETS.get(name))
 
     # cache the dataset locally
-    if cache and not os.path.exists(local_path):
+    if cache and not Path(local_path).exists():
         if lazy:
             frame.sink_ipc(local_path, compression="zstd")
         else:
             frame.write_ipc(local_path, compression="zstd")
 
-    if os.path.exists(local_path):
-        print(local_path)
     return frame
 
 
@@ -88,7 +71,7 @@ def available(option: str | None = None) -> list[str]:
 
     Parameters
     ----------
-    option : str, optional
+    option : str, optional {"remote", "local"}
         The option to list available datasets.
         Default is None
 
@@ -102,10 +85,15 @@ def available(option: str | None = None) -> list[str]:
         If the option is not 'remote' or 'local'.
 
     """
-    if option is None or option == "remote":
-        return list(_DATASETS.keys())
+    if option is None:
+        return {
+            "remote": list(_REMOTE_DATASETS.keys()),
+            "local": list(_LOCAL_CACHES.keys()),
+        }
+    elif option == "remote":
+        return {option: list(_REMOTE_DATASETS.keys())}
     elif option == "local":
-        return [x for x in _LOCAL_PATHS if os.path.exists(_LOCAL_PATHS.get(x))]
+        return {option: list(_LOCAL_CACHES.keys())}
     else:
         msg = "Invalid option. Please use either 'remote' or 'local'."
         raise ValueError(msg)
