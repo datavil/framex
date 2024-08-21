@@ -1,6 +1,7 @@
 # FRAMES
 
-Dataframe operations library built on top polars.
+Getting __testing datasets__ made easy.
+Built on top of polars.
 
 ## Installation
 
@@ -41,6 +42,10 @@ To see the list of available datasets, run:
 fx.available()
 ```
 
+```python
+{'remote': ['iris', 'mpg', 'netflix', 'starbucks', 'titanic'], 'local': ['titanic']}
+```
+
 which returns a dictionary of both __locally__ and __remotely__ available datasets.
 
 To see only __local__ or __remote__ datasets, run:
@@ -48,4 +53,9 @@ To see only __local__ or __remote__ datasets, run:
 ```python
 fx.available("local")
 fx.available("remote")
+```
+
+```python
+{'local': ['titanic']}
+{'remote': ['iris', 'mpg', 'netflix', 'starbucks', 'titanic']}
 ```
