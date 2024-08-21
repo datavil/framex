@@ -8,13 +8,13 @@ Built on top of polars.
 to get started, install the library with:
 
 ```shell
-pip install frames
+pip install framex
 ```
 
 ## Usage
 
 ```python
-import frames as fx
+import framex as fx
 ```
 
 ### Loading datasets

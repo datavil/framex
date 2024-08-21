@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import requests
 
-from frames._dicts._constants import _EXTENSION
+from framex._dicts._constants import _EXTENSION
 
 # GitHub API URL for the directory contents
 _API_URL = "https://api.github.com/repos/Zaf4/datasets/contents/feather"

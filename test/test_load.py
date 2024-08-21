@@ -1,6 +1,6 @@
 import polars as pl
 
-import frames as fx
+import framex as fx
 
 if __name__ == "__main__":
     # test 1: DataFrame eager

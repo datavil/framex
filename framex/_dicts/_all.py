@@ -1,5 +1,5 @@
-from frames._dicts._github import _GITHUB_DATASETS
-from frames._dicts._local import _LOCAL_CACHES
+from framex._dicts._github import _GITHUB_DATASETS
+from framex._dicts._local import _LOCAL_CACHES
 
 # more will be added later
 

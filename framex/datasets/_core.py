@@ -5,8 +5,8 @@ from typing import TYPE_CHECKING
 
 from polars import read_ipc, scan_ipc
 
-from frames._dicts import _DATASETS, _LOCAL_CACHES, _REMOTE_DATASETS
-from frames._dicts._constants import _LOCAL_DIR
+from framex._dicts import _DATASETS, _LOCAL_CACHES, _REMOTE_DATASETS
+from framex._dicts._constants import _LOCAL_DIR
 
 if TYPE_CHECKING:
     from polars import DataFrame, LazyFrame
