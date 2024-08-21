@@ -27,7 +27,7 @@ def _get_names(api_url: str) -> dict[str, str]:
 
     # Extract .feather files
     datasets = {
-        file["name"].strip(_EXTENSION): file["download_url"]
+        file["name"].rstrip(_EXTENSION): file["download_url"]
         for file in files
         if file["name"].endswith(_EXTENSION)
     }
@@ -36,4 +36,3 @@ def _get_names(api_url: str) -> dict[str, str]:
 
 
 _GITHUB_DATASETS = _get_names(_API_URL)
-print(_GITHUB_DATASETS)

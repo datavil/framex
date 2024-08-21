@@ -8,6 +8,3 @@ if __name__ == "__main__":
     assert type(titanic_eager) is pl.DataFrame
     titanic_lazy = fx.load("titanic", lazy=True)
     assert type(titanic_lazy) is pl.LazyFrame
-
-    print(titanic_eager.head())
-    print(titanic_lazy.collect().head())
