@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 
 def load(
-    name: str, *, lazy: bool = False, check_local: bool = True, cache: bool = True
+    name: str, *, lazy: bool = False, check_local: bool = True, cache: bool = True, dir: str | None = None
 ) -> DataFrame | LazyFrame:
     """
     Loads dataset by with the given name if available.
