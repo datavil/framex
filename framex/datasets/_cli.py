@@ -96,15 +96,15 @@ def get(
 
     if path in cached:
         if not overwrite:
-            msg = f"File {path} already exists.\nUse `overwrite` to overwrite."
+            msg = f"File {path} already exists.\nUse `--overwrite` to overwrite."
             print(msg)
             return
         else:
-            print(f"Overwriting: {path}\n")
+            print(f"Overwriting: {path}")
             _save(frame=frame, path=path, format=format)
     elif path not in cached:
         _save(frame=frame, path=path, format=format)
-        print(f"Saving: {path}\n")
+        print(f"Saving: {path}")
 
     return
 
