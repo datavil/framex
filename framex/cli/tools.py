@@ -1,6 +1,6 @@
 import argparse
 
-from framex import available
+from framex.datasets import available
 from framex.datasets._cli import get
 
 
@@ -17,7 +17,6 @@ def main():
 
     # Subcommand: list
     list_parser = subparsers.add_parser("list", help="List available datasets")
-    # No additional arguments needed for 'list'
 
     args = parser.parse_args()
 

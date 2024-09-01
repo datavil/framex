@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from pathlib import Path
 from typing import TYPE_CHECKING
 
 from polars import read_ipc, scan_ipc
@@ -13,7 +12,7 @@ if TYPE_CHECKING:
 
 
 def load(
-    name: str, *, lazy: bool = False, check_local: bool = True, cache: bool = True, dir: str | None = None
+    name: str, *, lazy: bool = False, check_local: bool = True, cache: bool = True,
 ) -> DataFrame | LazyFrame:
     """
     Loads dataset by with the given name if available.
