@@ -1,23 +1,21 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import TYPE_CHECKING, Literal
+from typing import TYPE_CHECKING, Callable, Literal
 
-from polars import scan_ipc, read_ipc
+from polars import read_ipc
 
 from framex._dicts import _REMOTE_DATASETS
 
 # from framex._dicts._constants import _EXTENSION, _LOCAL_DIR
 
 if TYPE_CHECKING:
-    import os
-
-    from polars import LazyFrame
+    from polars import DataFrame
 
 
 def _save(
-    frame: LazyFrame,
-    path: Path[str],
+    frame: DataFrame,
+    path: Path,
     format: str | Literal["feather", "parquet", "csv", "json", "ipc"] = "feather",
 ) -> None:
     """
@@ -48,7 +46,7 @@ def _save(
 def get(
     name: str,
     *,
-    dir: str | Path[str] | os.pathlike[str] | None = None,
+    dir: str | Path | None = None,
     overwrite: bool = False,
     format: str | Literal["feather", "parquet", "csv", "json", "ipc"] = "feather",
 ) -> None:
@@ -76,11 +74,11 @@ def get(
     None
     """
     if dir is None:
-        Path().resolve()
+        dir = Path().resolve()
     else:
         dir = Path(dir).resolve()
     # select the function to load the dataset
-    loader = read_ipc
+    loader : Callable[..., DataFrame] = read_ipc
     # check if the dataset is available
     if name not in _REMOTE_DATASETS:
         msg = f"Dataset {name} not found."

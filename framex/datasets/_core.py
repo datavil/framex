@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Callable
 
 from polars import read_ipc, scan_ipc
 
@@ -12,7 +12,11 @@ if TYPE_CHECKING:
 
 
 def load(
-    name: str, *, lazy: bool = False, check_local: bool = True, cache: bool = True,
+    name: str,
+    *,
+    lazy: bool = False,
+    check_local: bool = True,
+    cache: bool = True,
 ) -> DataFrame | LazyFrame:
     """
     Loads dataset by with the given name if available.
@@ -38,7 +42,8 @@ def load(
     polars.DataFrame or polars.LazyFrame
     """
     # select the function to load the dataset
-    loader = scan_ipc if lazy else read_ipc
+    loader: Callable[..., DataFrame | LazyFrame] = scan_ipc if lazy else read_ipc
+
     # check if the dataset is available
     if name not in _DATASETS:
         msg = f"Dataset {name} not found."
@@ -64,7 +69,7 @@ def load(
     return frame
 
 
-def available(option: str | None = None) -> list[str]:
+def available(option: str | None = None) -> dict[str, list[str]]:
     """
     List available datasets.
 
