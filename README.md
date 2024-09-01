@@ -1,7 +1,7 @@
 # FRAMEX
 
-Getting __test datasets__ made easy.  
-Built on top of polars.
+Getting __test datasets__ made easy.   
+Built on top of [polars](https://pola.rs/).
 
 ## Installation
 
@@ -77,7 +77,7 @@ iris = fx.load("iris", lazy=True)
 which returns a polars [__LazyFrame__](https://docs.pola.rs/api/python/stable/reference/lazyframe/index.html)
 
 Both these operations create local copies of the datasets
-as by default ```cache=True```.
+by default ```cache=True```.
 
 #### Available datasets
 
