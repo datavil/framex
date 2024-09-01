@@ -78,7 +78,7 @@ def get(
     else:
         dir = Path(dir).resolve()
     # select the function to load the dataset
-    loader : Callable[..., DataFrame] = read_ipc
+    loader: Callable[..., DataFrame] = read_ipc
     # check if the dataset is available
     if name not in _REMOTE_DATASETS:
         msg = f"Dataset {name} not found."

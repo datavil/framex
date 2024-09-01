@@ -2,6 +2,13 @@ import polars as pl
 
 import framex as fx
 
+
+def assert_load():
+    """Assertion."""
+    assert type(fx.load("titanic")) is pl.DataFrame
+    assert type(fx.load("titanic", lazy=True)) is pl.LazyFrame
+
+
 if __name__ == "__main__":
     # test 1: DataFrame eager
     titanic_eager = fx.load("titanic")
