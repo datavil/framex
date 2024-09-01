@@ -1,11 +1,11 @@
 # FRAMEX
 
-Getting __testing datasets__ made easy.
+Getting __test datasets__ made easy.  
 Built on top of polars.
 
 ## Installation
 
-to get started, install the library with:
+To get started, install the library with:
 
 ```shell
 pip install framex
@@ -13,17 +13,43 @@ pip install framex
 
 ## Usage
 
+### CLI
+
+Get a single dataset:
+
+```shell
+fx get iris
+```
+
+or get multiple datasets:
+
+```shell
+fx get iris mpg titanic
+```
+
+which will download dataset(s) to the current directory.
+
+```shell
+fx list
+```
+
+this will list all available datasets on the remote server.
+
+### Python
+
 ```python
 import framex as fx
 ```
 
-### Loading datasets
+#### Loading datasets
 
 ```python
 iris = fx.load("iris")
 ```
 
-which returns a polars __DataFrame__
+which returns a polars [__DataFrame__](https://docs.pola.rs/api/python/stable/reference/dataframe/index.html)  
+Therefore, you can use all the __polars__ functions and methods on the returned __DataFrame__.
+
 
 ```python
 iris.head()
@@ -48,12 +74,12 @@ shape: (5, 5)
 iris = fx.load("iris", lazy=True)
 ```
 
-which returns a polars __LazyFrame__
+which returns a polars [__LazyFrame__](https://docs.pola.rs/api/python/stable/reference/lazyframe/index.html)
 
 Both these operations create local copies of the datasets
 as by default ```cache=True```.
 
-### Available datasets
+#### Available datasets
 
 To see the list of available datasets, run:
 
