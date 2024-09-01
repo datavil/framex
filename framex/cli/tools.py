@@ -37,8 +37,11 @@ def main():
     # Subcommand: list
     list_parser = subparsers.add_parser("list", help="List available datasets")
     args = parser.parse_args()
+    if args.command is None:
+        parser.print_help()  # Show help if no command is provided
+        return
 
-    if args.command == "get":
+    elif args.command == "get":
         for dataset in args.datasets:
             get(
                 name=dataset,
