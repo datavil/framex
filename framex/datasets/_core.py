@@ -53,16 +53,21 @@ def load(
     # load the dataset
     if check_local:
         if name in _LOCAL_CACHES:
-            frame = loader(_LOCAL_CACHES.get(name))
+            frame = loader(_LOCAL_CACHES.get(name), memory_map=False)
         else:
-            frame = loader(_DATASETS.get(name))
+            frame = loader(_DATASETS.get(name), memory_map=False)
     else:
-        frame = loader(_DATASETS.get(name))
+        frame = loader(_DATASETS.get(name), memory_map=False)
 
     # cache the dataset locally
     if cache and name not in _LOCAL_CACHES:
         if lazy:
-            frame.sink_ipc(_LOCAL_DIR / f"{name}{_EXTENSION}", compression="zstd")
+            # sink IPC is not yet supportted
+            # polars.exceptions.InvalidOperationError:
+            # sink_Ipc(IpcWriterOptions { compression: Some(ZSTD), maintain_order: true })
+            # not yet supported in standard engine.
+            # Use 'collect().write_parquet()'
+            frame.collect().write_ipc(_LOCAL_DIR / f"{name}{_EXTENSION}", compression="zstd")
         else:
             frame.write_ipc(_LOCAL_DIR / f"{name}{_EXTENSION}", compression="zstd")
 
