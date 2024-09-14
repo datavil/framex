@@ -1,6 +1,7 @@
 # FRAMEX
 
-Getting __test datasets__ made easy.   
+__Framex__ is a light-weight, dataset obtaining library for fast __prototyping__, __tutorial creation__, and __experimenting__.
+
 Built on top of [polars](https://pola.rs/).
 
 ## Installation
@@ -29,11 +30,21 @@ fx get iris mpg titanic
 
 which will download dataset(s) to the current directory.
 
+For more parameters
+
+```shell
+fx get --help
+```
+
+To get the name of the available datasets on the __remote server__.
+
 ```shell
 fx list
 ```
 
 this will list all available datasets on the remote server.
+
+
 
 ### Python
 
@@ -47,9 +58,8 @@ import framex as fx
 iris = fx.load("iris")
 ```
 
-which returns a polars [__DataFrame__](https://docs.pola.rs/api/python/stable/reference/dataframe/index.html)  
+which returns a [__polars DataFrame__](https://docs.pola.rs/api/python/stable/reference/dataframe/index.html)  
 Therefore, you can use all the __polars__ functions and methods on the returned __DataFrame__.
-
 
 ```python
 iris.head()
@@ -74,7 +84,7 @@ shape: (5, 5)
 iris = fx.load("iris", lazy=True)
 ```
 
-which returns a polars [__LazyFrame__](https://docs.pola.rs/api/python/stable/reference/lazyframe/index.html)
+which returns a [__polars LazyFrame__](https://docs.pola.rs/api/python/stable/reference/lazyframe/index.html)
 
 Both these operations create local copies of the datasets
 by default ```cache=True```.
