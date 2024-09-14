@@ -1,7 +1,7 @@
 # FrameX
 
 <p>
-    <a href="https://github.com/yourusername/framex">
+    <a href="https://github.com/Zaf4/framex">
         <img alt="GitHub" src="https://img.shields.io/badge/GitHub-100000?style=flat&logo=github&logoColor=white" />
     </a>
     <a href="https://pypi.org/project/framex/">
