@@ -1,8 +1,17 @@
-# FRAMEX
+# FrameX
+
+<p>
+    <a href="https://github.com/yourusername/framex">
+        <img alt="GitHub" src="https://img.shields.io/badge/GitHub-100000?style=flat&logo=github&logoColor=white" />
+    </a>
+    <a href="https://pypi.org/project/framex/">
+        <img alt="PyPI" src="https://img.shields.io/pypi/v/framex?color=blue" />
+    </a>
+</p>
 
 __Framex__ is a light-weight, dataset obtaining library for fast __prototyping__, __tutorial creation__, and __experimenting__.
 
-Built on top of [polars](https://pola.rs/).
+Built on top of [Polars](https://pola.rs/).
 
 ## Installation
 
