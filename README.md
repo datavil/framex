@@ -23,38 +23,6 @@ pip install framex
 
 ## Usage
 
-### CLI
-
-Get a single dataset:
-
-```shell
-fx get iris
-```
-
-or get multiple datasets:
-
-```shell
-fx get iris mpg titanic
-```
-
-which will download dataset(s) to the current directory.
-
-For more parameters
-
-```shell
-fx get --help
-```
-
-To get the name of the available datasets on the __remote server__.
-
-```shell
-fx list
-```
-
-this will list all available datasets on the remote server.
-
-
-
 ### Python
 
 ```python
@@ -123,3 +91,33 @@ fx.available("remote")
 {'local': ['titanic']}
 {'remote': ['iris', 'mpg', 'netflix', 'starbucks', 'titanic']}
 ```
+
+### CLI
+
+Get a single dataset:
+
+```shell
+fx get iris
+```
+
+or get multiple datasets:
+
+```shell
+fx get iris mpg titanic
+```
+
+which will download dataset(s) to the current directory.
+
+For more parameters
+
+```shell
+fx get --help
+```
+
+To get the name of the available datasets on the __remote server__.
+
+```shell
+fx list
+```
+
+this will list all available datasets on the remote server.
