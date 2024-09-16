@@ -3,7 +3,8 @@ import framex as fx
 
 def assert_about():
     """Test `about` functions."""
-    fx.about("titanic")
+    fx.about("mpg", mode="print")
+    print(fx.about("mpg", mode="row"))
     return
 
 

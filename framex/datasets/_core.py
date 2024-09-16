@@ -1,12 +1,12 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Callable
+from typing import TYPE_CHECKING, Callable, Literal
 
 import polars
 from polars import read_ipc, scan_ipc
 
 from framex._dicts import _DATASETS, _LOCAL_CACHES, _REMOTE_DATASETS
-from framex._dicts._constants import _EXTENSION, _LOCAL_DIR
+from framex._dicts._constants import _EXTENSION, _INFO_FILE, _LOCAL_DIR
 
 if TYPE_CHECKING:
     from polars import DataFrame, LazyFrame
@@ -108,26 +108,41 @@ def available(option: str | None = None) -> dict[str, list[str]]:
         msg = "Invalid option. Please use either 'remote' or 'local'."
         raise ValueError(msg)
 
-def about(name: str) -> None:
+def about(name: str, mode: Literal["print", "row"] = "print") -> None | polars.DataFrame:
     """
-    Print information about a dataset.
+    Print or return information about a dataset.
 
     Parameters
     ----------
     name : str
         Name of the dataset.
+    mode : Literal["print", "row"]
+        The mode to print information.
+        Default is "print"
+            print: prints the information
+            row: returns the information as a single row polars.DataFrame
 
     Returns
     -------
     None
     """
-    df = polars.read_csv("https://github.com/Zaf4/datasets/raw/main/datasets_info.csv")
+    df = polars.read_csv(_INFO_FILE)
+    try:
+        row = df.filter(polars.col("name")==name)
+    except Exception as e:
+        msg = f"Dataset {name} not found in datasets_info.csv"
+        raise ValueError(msg) from e
 
-    row = df.filter(polars.col("name")==name)
-    og_name = row.select("source").item().split('/')[-1]
-    og_id = "OG NAME"
-    for column in row.columns:
-        print(f"{column.upper():<8}: {row.select(column).item()}")
-    print(f"{og_id:<8}: {og_name}")
+    if mode == "row":#
+        return row
+    elif mode == "print":
+        og_name = row.select("source").item().split('/')[-1]
+        og_id = "OG NAME"
+        for column in row.columns:
+            print(f"{column.upper():<8}: {row.select(column).item()}")
+        print(f"{og_id:<8}: {og_name}")
+        return
+    else:
+        msg = "Invalid mode. Please use either 'print' or 'row'."
+        raise ValueError(msg)
 
-    return

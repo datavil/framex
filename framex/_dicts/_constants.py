@@ -5,3 +5,4 @@ if not _LOCAL_DIR.exists():
     _LOCAL_DIR.mkdir()
 _REMOTE_DIR_GITHUB = "https://github.com/Zaf4/datasets/raw/main/feather/"
 _EXTENSION = ".feather"
+_INFO_FILE = "https://github.com/Zaf4/datasets/raw/main/datasets_info.csv"
