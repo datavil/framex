@@ -92,6 +92,41 @@ fx.available("remote")
 {'remote': ['iris', 'mpg', 'netflix', 'starbucks', 'titanic']}
 ```
 
+#### Information on Datasets
+
+To get information on a dataset, run:
+which will print the information on the dataset.
+
+```python
+fx.about("mpg") # basically the same as `fx.about("mpg", mode="print")`
+```
+
+```text
+NAME    : mpg
+SOURCE  : https://www.kaggle.com/datasets/uciml/autompg-dataset
+LICENSE : CC0: Public Domain
+ORIGIN  : Kaggle
+OG NAME : autompg-dataset
+```
+
+Or you can get the information as a single row polars.DataFrame by running:
+
+```python
+row = fx.about("mpg", mode="row")
+print(row)
+```
+
+```text
+shape: (1, 4)
+┌──────┬─────────────────────────────────┬────────────────────┬────────┐       
+│ name ┆ source                          ┆ license            ┆ origin │       
+│ ---  ┆ ---                             ┆ ---                ┆ ---    │       
+│ str  ┆ str                             ┆ str                ┆ str    │       
+╞══════╪═════════════════════════════════╪════════════════════╪════════╡       
+│ mpg  ┆ https://www.kaggle.com/dataset… ┆ CC0: Public Domain ┆ Kaggle │       
+└──────┴─────────────────────────────────┴────────────────────┴────────┘ 
+```
+
 ### CLI
 
 Get a single dataset:
