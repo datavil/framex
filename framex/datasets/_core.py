@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Callable
 
+import polars
 from polars import read_ipc, scan_ipc
 
 from framex._dicts import _DATASETS, _LOCAL_CACHES, _REMOTE_DATASETS
@@ -106,3 +107,27 @@ def available(option: str | None = None) -> dict[str, list[str]]:
     else:
         msg = "Invalid option. Please use either 'remote' or 'local'."
         raise ValueError(msg)
+
+def about(name: str) -> None:
+    """
+    Print information about a dataset.
+
+    Parameters
+    ----------
+    name : str
+        Name of the dataset.
+
+    Returns
+    -------
+    None
+    """
+    df = polars.read_csv("https://github.com/Zaf4/datasets/raw/main/datasets_info.csv")
+
+    row = df.filter(polars.col("name")==name)
+    og_name = row.select("source").item().split('/')[-1]
+    og_id = "OG NAME"
+    for column in row.columns:
+        print(f"{column.upper():<8}: {row.select(column).item()}")
+    print(f"{og_id:<8}: {og_name}")
+
+    return

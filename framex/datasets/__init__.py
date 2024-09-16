@@ -1,3 +1,3 @@
-from framex.datasets._core import available, load
+from framex.datasets._core import about, available, load
 
-__all__ = ["available", "load"]
+__all__ = ["about", "available", "load"]
