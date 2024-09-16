@@ -95,11 +95,12 @@ fx.available("remote")
 #### Information on Datasets
 
 To get information on a dataset, run:
-which will print the information on the dataset.
 
 ```python
 fx.about("mpg") # basically the same as `fx.about("mpg", mode="print")`
 ```
+
+which will print the information on the dataset as the following:
 
 ```text
 NAME    : mpg
@@ -116,6 +117,8 @@ row = fx.about("mpg", mode="row")
 print(row)
 ```
 
+which will print the information on the dataset __ASCII art__ as the following:
+
 ```text
 shape: (1, 4)
 ┌──────┬─────────────────────────────────┬────────────────────┬────────┐       
@@ -126,6 +129,8 @@ shape: (1, 4)
 │ mpg  ┆ https://www.kaggle.com/dataset… ┆ CC0: Public Domain ┆ Kaggle │       
 └──────┴─────────────────────────────────┴────────────────────┴────────┘ 
 ```
+
+or you can simply treat `row` as a polars DataFrame in your code.
 
 ### CLI
 
