@@ -43,10 +43,10 @@ def load(
     polars.DataFrame or polars.LazyFrame
     """
     # select the function to load the dataset
-    if _EXTENSION == "feather":
-        loader: Callable[..., DataFrame | LazyFrame] = scan_ipc if lazy else read_ipc
-    elif _EXTENSION == "parquet":
+    if _EXTENSION == "parquet":
         loader: Callable[..., DataFrame | LazyFrame] = scan_parquet if lazy else read_parquet
+    # elif _EXTENSION == "feather":
+    #     loader: Callable[..., DataFrame | LazyFrame] = scan_ipc if lazy else read_ipc
 
     # check if the dataset is available
     if name not in _DATASETS:
