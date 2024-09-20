@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Callable, Literal
 
 import polars
-from polars import read_ipc, scan_ipc
+from polars import read_ipc, read_parquet, scan_ipc, scan_parquet
 
 from framex._dicts import _DATASETS, _LOCAL_CACHES, _REMOTE_DATASETS
 from framex._dicts._constants import _EXTENSION, _INFO_FILE, _LOCAL_DIR
@@ -43,7 +43,10 @@ def load(
     polars.DataFrame or polars.LazyFrame
     """
     # select the function to load the dataset
-    loader: Callable[..., DataFrame | LazyFrame] = scan_ipc if lazy else read_ipc
+    if _EXTENSION == "feather":
+        loader: Callable[..., DataFrame | LazyFrame] = scan_ipc if lazy else read_ipc
+    elif _EXTENSION == "parquet":
+        loader: Callable[..., DataFrame | LazyFrame] = scan_parquet if lazy else read_parquet
 
     # check if the dataset is available
     if name not in _DATASETS:
@@ -54,11 +57,11 @@ def load(
     # load the dataset
     if check_local:
         if name in _LOCAL_CACHES:
-            frame = loader(_LOCAL_CACHES.get(name), memory_map=False)
+            frame = loader(_LOCAL_CACHES.get(name))
         else:
-            frame = loader(_DATASETS.get(name), memory_map=False)
+            frame = loader(_DATASETS.get(name))
     else:
-        frame = loader(_DATASETS.get(name), memory_map=False)
+        frame = loader(_DATASETS.get(name))
 
     # cache the dataset locally
     if cache and name not in _LOCAL_CACHES:
@@ -68,9 +71,9 @@ def load(
             # sink_Ipc(IpcWriterOptions { compression: Some(ZSTD), maintain_order: true })
             # not yet supported in standard engine.
             # Use 'collect().write_parquet()'
-            frame.collect().write_ipc(_LOCAL_DIR / f"{name}{_EXTENSION}", compression="zstd")
+            frame.sink_parquet(_LOCAL_DIR / f"{name}.{_EXTENSION}", compression="zstd")
         else:
-            frame.write_ipc(_LOCAL_DIR / f"{name}{_EXTENSION}", compression="zstd")
+            frame.write_parquet(_LOCAL_DIR / f"{name}.{_EXTENSION}", compression="zstd")
 
     return frame
 

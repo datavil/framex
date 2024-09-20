@@ -5,7 +5,7 @@ import requests
 from framex._dicts._constants import _EXTENSION
 
 # GitHub API URL for the directory contents
-_API_URL = "https://api.github.com/repos/Zaf4/datasets/contents/feather"
+_API_URL = f"https://api.github.com/repos/datavil/datasets/contents/{_EXTENSION}"
 
 
 def _get_names(api_url: str) -> dict[str, str]:
@@ -27,9 +27,9 @@ def _get_names(api_url: str) -> dict[str, str]:
 
     # Extract .feather files
     datasets = {
-        file["name"].rstrip(_EXTENSION): file["download_url"]
+        file["name"].rstrip(f".{_EXTENSION}"): file["download_url"]
         for file in files
-        if file["name"].endswith(_EXTENSION)
+        if file["name"].endswith(f".{_EXTENSION}")
     }
 
     return datasets
