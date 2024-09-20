@@ -5,7 +5,8 @@ if __name__ == "__main__":
         # clean()
         assert_available()
         assert_load()
+        assert_load()
         assert_about()
-        # clean()
+        clean()
     except Exception as e:
         raise f"Did not pass all tests: {e}" from e

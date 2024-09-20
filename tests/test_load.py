@@ -19,4 +19,7 @@ if __name__ == "__main__":
 
 iris = fx.load("iris")
 iris = fx.load("iris")
+mpg = fx.load("mpg",lazy=True)
+mpg = fx.load("mpg",lazy=True)
 print(iris.head())
+print(mpg.collect().head())
