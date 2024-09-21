@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import TYPE_CHECKING, Callable, Literal
 
-from polars import read_parquet
+from polars import read_ipc, read_parquet
 
 from framex._dicts import _REMOTE_DATASETS
 from framex._dicts._constants import _EXTENSION
@@ -79,7 +79,10 @@ def get(
     else:
         dir = Path(dir).resolve()
     # select the function to load the dataset
-    loader: Callable[..., DataFrame] = read_parquet
+    if _EXTENSION == "parquet":
+        loader: Callable[..., DataFrame] = read_parquet
+    elif _EXTENSION == "feather":
+        loader: Callable[..., DataFrame] = read_ipc
 
     # check if the dataset is available
     if name not in _REMOTE_DATASETS:

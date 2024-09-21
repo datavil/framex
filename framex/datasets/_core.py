@@ -1,12 +1,11 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Callable, Literal
+from typing import TYPE_CHECKING, Callable
 
-import polars
 from polars import read_ipc, read_parquet, scan_ipc, scan_parquet
 
-from framex._dicts import _DATASETS, _LOCAL_CACHES, _REMOTE_DATASETS
-from framex._dicts._constants import _EXTENSION, _INFO_FILE, _LOCAL_DIR
+from framex._dicts import _DATASETS, _LOCAL_CACHES
+from framex._dicts._constants import _EXTENSION, _LOCAL_DIR
 
 if TYPE_CHECKING:
     from polars import DataFrame, LazyFrame
@@ -59,20 +58,20 @@ def load(
     # load the dataset
     if check_local:
         if name in _LOCAL_CACHES:
-            frame = loader(_LOCAL_CACHES.get(name))
+            frame = loader(_LOCAL_CACHES.get(name), memory_map=False)
         else:
-            frame = loader(_DATASETS.get(name))
+            frame = loader(_DATASETS.get(name), memory_map=False)
     else:
-        frame = loader(_DATASETS.get(name))
+        frame = loader(_DATASETS.get(name), memory_map=False)
 
     # cache the dataset locally
     if cache and name not in _LOCAL_CACHES:
-        save_dir = _LOCAL_DIR / f"{name}.{_EXTENSION}"
+        path = _LOCAL_DIR / f"{name}.{_EXTENSION}"
         if lazy:
             if _EXTENSION == "parquet":
-                frame.sink_parquet(save_dir, compression="zstd")
+                frame.sink_parquet(path, compression="zstd")
             elif _EXTENSION == "feather":
-                frame.collect().write_ipc(save_dir, compression="zstd")
+                frame.collect().write_ipc(path, compression="zstd")
                 # sink IPC is not yet supportted
                 # polars.exceptions.InvalidOperationError:
                 # sink_Ipc(IpcWriterOptions { compression: Some(ZSTD), maintain_order: true })
@@ -81,83 +80,8 @@ def load(
                 ## polars 1.7.1
         else:
             if _EXTENSION == "parquet":
-                frame.write_parquet(save_dir, compression="zstd")
+                frame.write_parquet(path, compression="zstd")
             elif _EXTENSION == "feather":
-                frame.write_ipc(save_dir, compression="zstd")
+                frame.write_ipc(path, compression="zstd")
 
     return frame
-
-
-def available(option: str | None = None) -> dict[str, list[str]]:
-    """
-    List available datasets.
-
-    Parameters
-    ----------
-    option : str, optional {"remote", "local"}
-        The option to list available datasets.
-        Default is None
-
-    Returns
-    -------
-    list of available datasets
-
-    Raises
-    ------
-    ValueError
-        If the option is not 'remote' or 'local'.
-
-    """
-    if option is None:
-        return {
-            "remote": list(_REMOTE_DATASETS.keys()),
-            "local": list(_LOCAL_CACHES.keys()),
-        }
-    elif option == "remote":
-        return {option: list(_REMOTE_DATASETS.keys())}
-    elif option == "local":
-        return {option: list(_LOCAL_CACHES.keys())}
-    else:
-        msg = "Invalid option. Please use either 'remote' or 'local'."
-        raise ValueError(msg)
-
-
-def about(
-    name: str, mode: Literal["print", "row"] = "print"
-) -> None | polars.DataFrame:
-    """
-    Print or return information about a dataset.
-
-    Parameters
-    ----------
-    name : str
-        Name of the dataset.
-    mode : Literal["print", "row"]
-        The mode to print information.
-        Default is "print"
-            print: prints the information
-            row: returns the information as a single row polars.DataFrame
-
-    Returns
-    -------
-    None
-    """
-    df = polars.read_csv(_INFO_FILE)
-    try:
-        row = df.filter(polars.col("name") == name)
-    except Exception as e:
-        msg = f"Dataset {name} not found in datasets_info.csv"
-        raise ValueError(msg) from e
-
-    if mode == "row":  #
-        return row
-    elif mode == "print":
-        og_name = row.select("source").item().split("/")[-1]
-        og_id = "OG NAME"
-        for column in row.columns:
-            print(f"{column.upper():<8}: {row.select(column).item()}")
-        print(f"{og_id:<8}: {og_name}")
-        return
-    else:
-        msg = "Invalid mode. Please use either 'print' or 'row'."
-        raise ValueError(msg)
