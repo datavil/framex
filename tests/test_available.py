@@ -8,6 +8,7 @@ def main():
     print(fx.available(option=None))  # all available
     return
 
+
 def assert_available():
     """Assertion."""
     assert isinstance(fx.available(option="remote"), dict)

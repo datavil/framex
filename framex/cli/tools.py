@@ -1,7 +1,7 @@
 import argparse
 
+from framex.cli._cli import get
 from framex.datasets import available
-from framex.datasets._cli import get
 
 
 def main():
