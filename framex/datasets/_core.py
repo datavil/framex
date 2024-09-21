@@ -44,9 +44,11 @@ def load(
     """
     # select the function to load the dataset
     if _EXTENSION == "parquet":
-        loader: Callable[..., DataFrame | LazyFrame] = scan_parquet if lazy else read_parquet
-    # elif _EXTENSION == "feather":
-    #     loader: Callable[..., DataFrame | LazyFrame] = scan_ipc if lazy else read_ipc
+        loader: Callable[..., DataFrame | LazyFrame] = (
+            scan_parquet if lazy else read_parquet
+        )
+    elif _EXTENSION == "feather":
+        loader: Callable[..., DataFrame | LazyFrame] = scan_ipc if lazy else read_ipc
 
     # check if the dataset is available
     if name not in _DATASETS:
@@ -65,15 +67,23 @@ def load(
 
     # cache the dataset locally
     if cache and name not in _LOCAL_CACHES:
+        save_dir = _LOCAL_DIR / f"{name}.{_EXTENSION}"
         if lazy:
-            # sink IPC is not yet supportted
-            # polars.exceptions.InvalidOperationError:
-            # sink_Ipc(IpcWriterOptions { compression: Some(ZSTD), maintain_order: true })
-            # not yet supported in standard engine.
-            # Use 'collect().write_parquet()'
-            frame.sink_parquet(_LOCAL_DIR / f"{name}.{_EXTENSION}", compression="zstd")
+            if _EXTENSION == "parquet":
+                frame.sink_parquet(save_dir, compression="zstd")
+            elif _EXTENSION == "feather":
+                frame.collect().write_ipc(save_dir, compression="zstd")
+                # sink IPC is not yet supportted
+                # polars.exceptions.InvalidOperationError:
+                # sink_Ipc(IpcWriterOptions { compression: Some(ZSTD), maintain_order: true })
+                # not yet supported in standard engine.
+                # Use 'collect().write_parquet()'
+                ## polars 1.7.1
         else:
-            frame.write_parquet(_LOCAL_DIR / f"{name}.{_EXTENSION}", compression="zstd")
+            if _EXTENSION == "parquet":
+                frame.write_parquet(save_dir, compression="zstd")
+            elif _EXTENSION == "feather":
+                frame.write_ipc(save_dir, compression="zstd")
 
     return frame
 
@@ -111,7 +121,10 @@ def available(option: str | None = None) -> dict[str, list[str]]:
         msg = "Invalid option. Please use either 'remote' or 'local'."
         raise ValueError(msg)
 
-def about(name: str, mode: Literal["print", "row"] = "print") -> None | polars.DataFrame:
+
+def about(
+    name: str, mode: Literal["print", "row"] = "print"
+) -> None | polars.DataFrame:
     """
     Print or return information about a dataset.
 
@@ -131,15 +144,15 @@ def about(name: str, mode: Literal["print", "row"] = "print") -> None | polars.D
     """
     df = polars.read_csv(_INFO_FILE)
     try:
-        row = df.filter(polars.col("name")==name)
+        row = df.filter(polars.col("name") == name)
     except Exception as e:
         msg = f"Dataset {name} not found in datasets_info.csv"
         raise ValueError(msg) from e
 
-    if mode == "row":#
+    if mode == "row":  #
         return row
     elif mode == "print":
-        og_name = row.select("source").item().split('/')[-1]
+        og_name = row.select("source").item().split("/")[-1]
         og_id = "OG NAME"
         for column in row.columns:
             print(f"{column.upper():<8}: {row.select(column).item()}")
@@ -148,4 +161,3 @@ def about(name: str, mode: Literal["print", "row"] = "print") -> None | polars.D
     else:
         msg = "Invalid mode. Please use either 'print' or 'row'."
         raise ValueError(msg)
-
