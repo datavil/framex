@@ -1,7 +1,7 @@
 import framex as fx
 
 
-def assert_about():
+def test_about():
     """Test `about` functions."""
     fx.about("mpg", mode="print")
     print(fx.about("mpg", mode="row"))
@@ -9,4 +9,4 @@ def assert_about():
 
 
 if __name__ == "__main__":
-    assert_about()
+    test_about()

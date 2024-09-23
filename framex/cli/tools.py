@@ -1,7 +1,7 @@
 import argparse
 
 from framex.cli._cli import get
-from framex.datasets import available
+from framex.datasets import about, available
 
 
 def main():
@@ -33,9 +33,11 @@ def main():
         action="store_true",
         help="Whether to overwrite the dataset if it already exists.",
     )
+    info_parser = subparsers.add_parser("about", help="info about a dataset")
+    info_parser.add_argument("datasets", nargs="+", help="info about a dataset(s)")
 
     # Subcommand: list
-    list_parser = subparsers.add_parser("list", help="List available datasets")
+    list_parser = subparsers.add_parser("list", help="List available datasets") # noqa: F841
     args = parser.parse_args()
     if args.command is None:
         parser.print_help()  # Show help if no command is provided
@@ -50,10 +52,17 @@ def main():
                 overwrite=args.overwrite,
             )
     elif args.command == "list":
-        print(available(option="remote")["remote"])
+        print(available()["remote"])
+
+    elif args.command == "about":
+        for dataset in args.datasets:
+            about(name=dataset, mode="print")
+            print()
     else:
         msg = f"Invalid command: {args.command}"
         raise ValueError(msg)
+
+    return
 
 
 if __name__ == "__main__":

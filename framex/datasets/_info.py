@@ -28,15 +28,20 @@ def available(option: str | None = None) -> dict[str, list[str]]:
         If the option is not 'remote' or 'local'.
 
     """
+    remote_datasets = list(_REMOTE_DATASETS.keys())
+    local_datasets = list(_LOCAL_CACHES.keys())
+    remote_datasets.sort()
+    local_datasets.sort()
+
     if option is None:
         return {
-            "remote": list(_REMOTE_DATASETS.keys()),
-            "local": list(_LOCAL_CACHES.keys()),
+            "remote": list(remote_datasets),
+            "local": list(local_datasets),
         }
     elif option == "remote":
-        return {option: list(_REMOTE_DATASETS.keys())}
+        return {option: list(remote_datasets)}
     elif option == "local":
-        return {option: list(_LOCAL_CACHES.keys())}
+        return {option: list(local_datasets)}
     else:
         msg = "Invalid option. Please use either 'remote' or 'local'."
         raise ValueError(msg)
