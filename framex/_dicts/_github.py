@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import json
+
 import requests
 
 from framex._dicts._constants import _EXTENSION
@@ -19,21 +21,36 @@ def _get_names(api_url: str) -> dict[str, str]:
 
     Returns
     -------
-    list of str
-        The names of the datasets.
+    dict
+        The names of the datasets mapped to their download URLs.
     """
     response = requests.get(api_url)
-    files = response.json()
+
+    # Check if the request was successful
+    if response.status_code != 200:
+        print(f"Error: Received status code {response.status_code}")
+        return {}
+
+    try:
+        # Parse the response as JSON
+        files = response.json()
+    except json.JSONDecodeError:
+        print("Error: Failed to decode JSON response")
+        return {}
+
+    # Check if the response is a list (expected format)
+    if not isinstance(files, list):
+        print(f"Error: Expected a list, but got {type(files).__name__}")
+        return {}
 
     # Extract .feather files
     datasets = {
         file["name"].rstrip(f".{_EXTENSION}"): file["download_url"]
         for file in files
-        if file["name"].endswith(f".{_EXTENSION}")
+        if isinstance(file, dict) and file.get("name", "").endswith(f".{_EXTENSION}")
     }
 
     return datasets
 
 
 _GITHUB_DATASETS = _get_names(_API_URL)
-

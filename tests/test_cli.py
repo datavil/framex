@@ -1,11 +1,13 @@
+
 import shutil
 import subprocess
 from pathlib import Path
 
 
-def run_command(command): #noqa: D103
+def run_command(command):  # noqa: D103
     result = subprocess.run(command, shell=True, check=True)
     return result
+
 
 def test_cli():
     """Test the CLI components."""
@@ -26,13 +28,17 @@ def test_cli():
     return
 
 
-def main(): # noqa: D103
-    if Path("./data").exists():
-        shutil.rmtree("./data", ignore_errors=True)
-    Path("./data").mkdir()
+def main():  # noqa: D103
+    if Path("data").exists():
+        shutil.rmtree("data", ignore_errors=True)
+        Path ("data").mkdir()
+    else:
+        Path ("data").mkdir()
+
     test_cli()
 
     return
+
 
 if __name__ == "__main__":
     main()

@@ -12,21 +12,23 @@ def timer(func, *args, **kwargs):
         end = time.time()
         print(f"function {func.__name__} took {end - start:.2f} seconds")
         return result
+
     return inner
 
 
-
 @timer
-def load_parquet(url): # noqa: D103
+def load_parquet(url):  # noqa: D103
     for _ in range(10):
         pl.scan_parquet(url).sink_parquet("f.parquet")
     return
 
+
 @timer
-def load_feather(url): # noqa: D103
+def load_feather(url):  # noqa: D103
     for _ in range(10):
         pl.scan_ipc(url).collect().write_ipc("f.feather")
     return
+
 
 def main():
     for name in fx.available()["remote"]:
@@ -37,6 +39,7 @@ def main():
         load_feather(url)
         print()
     return
+
 
 if __name__ == "__main__":
     main()

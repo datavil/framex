@@ -6,7 +6,9 @@ from framex._dicts import _DATASETS
 from framex._dicts._constants import _EXTENSION
 
 
-def get_url(name: str, format: Literal["csv", "parquet", "feather"] = _EXTENSION) -> str:
+def get_url(
+    name: str, format: Literal["csv", "parquet", "feather"] = _EXTENSION
+) -> str:
     """
     Returns the URL of the dataset.
 

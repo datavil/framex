@@ -37,7 +37,7 @@ def main():
     info_parser.add_argument("datasets", nargs="+", help="info about a dataset(s)")
 
     # Subcommand: list
-    list_parser = subparsers.add_parser("list", help="List available datasets") # noqa: F841
+    list_parser = subparsers.add_parser("list", help="List available datasets")  # noqa: F841
     args = parser.parse_args()
     if args.command is None:
         parser.print_help()  # Show help if no command is provided
