@@ -1,3 +1,5 @@
+![Banner](.github/banner_dv.png)
+
 # FrameX
 
 [![GitHub](https://img.shields.io/badge/GitHub-100000?style=flat&logo=github&logoColor=white)](https://github.com/Zaf4/framex) [![PyPI](https://img.shields.io/pypi/v/framex?color=blue)](https://pypi.org/project/framex/)
@@ -5,6 +7,7 @@
 __Framex__ is a light-weight, dataset fetching library for fast __prototyping__, __tutorial creation__, and __experimenting__.
 
 Built on top of [Polars](https://pola.rs/).
+
 
 ## Contents
 
@@ -145,7 +148,7 @@ In case you need the file links.
 url_pokemon = fx.get_url("pokemon")
 ```
 
-by default, the format is "Feather".
+by default, the format is " feather".
 
 Optionally, you can specify the format of the dataset.
 
