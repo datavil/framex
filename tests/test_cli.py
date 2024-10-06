@@ -12,6 +12,7 @@ def run_command(command):  # noqa: D103
 def test_cli():
     """Test the CLI components."""
     # test get
+    Path("data").mkdir()
     run_command("fx get titanic --dir ./data --format parquet")
 
     # test multiple get

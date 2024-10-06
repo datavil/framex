@@ -15,6 +15,7 @@ def clean():
     shutil.rmtree(root / ".ruff_cache", ignore_errors=True)
     shutil.rmtree(root / ".mypy_cache", ignore_errors=True)
     shutil.rmtree(root / "framex/data", ignore_errors=True)
+    shutil.rmtree(root / "tests/data", ignore_errors=True)
 
     return
 
