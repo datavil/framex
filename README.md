@@ -1,56 +1,56 @@
-![Banner](.github/banner_dv.png)
+![Banner](.github/framex_banner.png)
 
-# FrameX
+# framex
+
+A [DataVil](https://github.com/datavil) project.
 
 [![GitHub](https://img.shields.io/badge/GitHub-100000?style=flat&logo=github&logoColor=white)](https://github.com/Zaf4/framex) [![PyPI](https://img.shields.io/pypi/v/framex?color=blue)](https://pypi.org/project/framex/)
 
-__Framex__ is a light-weight, dataset fetching library for fast __prototyping__, __tutorial creation__, and __experimenting__.
+**Framex** is a light-weight, dataset fetching library for fast **prototyping**, **tutorial creation**, and **experimenting**.
 
 Built on top of [Polars](https://pola.rs/).
 
-
 ## Contents
 
-- [Installation](#installation)
-- [Usage](#usage)
-  - [Python](#python)
-    - [Loading datasets](#loading-datasets)
-    - [Listing available datasets](#available-datasets)
-    - [Getting information on Datasets](#getting-information-on-datasets)
-    - [Getting Dataset URLs](#getting-dataset-urls)
-  - [CLI](#cli)
+-   [Installation](#installation)
+-   [Usage](#usage)
+    -   [Python](#python)
+        -   [Loading datasets](#loading-datasets)
+        -   [Listing available datasets](#available-datasets)
+        -   [Getting information on Datasets](#getting-information-on-datasets)
+        -   [Getting Dataset URLs](#getting-dataset-urls)
+    -   [CLI](#cli)
 
-
-## Installation
+## Installation {#installation}
 
 To get started, install the library with:
 
-```shell
+``` shell
 pip install framex
 ```
 
-## Usage
+## Usage {#usage}
 
-### Python
+### Python {#python}
 
-```python
+``` python
 import framex as fx
 ```
 
-#### Loading datasets
+#### Loading datasets {#loading-datasets}
 
-```python
+``` python
 iris = fx.load("iris")
 ```
 
-which returns a [__polars DataFrame__](https://docs.pola.rs/api/python/stable/reference/dataframe/index.html)  
-Therefore, you can use all the __polars__ functions and methods on the returned __DataFrame__.
+which returns a [**polars DataFrame**](https://docs.pola.rs/api/python/stable/reference/dataframe/index.html)\
+Therefore, you can use all the **polars** functions and methods on the returned **DataFrame**.
 
-```python
+``` python
 iris.head()
 ```
 
-```text
+``` text
 shape: (5, 5)
 ┌──────────────┬─────────────┬──────────────┬─────────────┬─────────┐
 │ sepal_length ┆ sepal_width ┆ petal_length ┆ petal_width ┆ species │
@@ -65,52 +65,51 @@ shape: (5, 5)
 └──────────────┴─────────────┴──────────────┴─────────────┴─────────┘
 ```
 
-```python
+``` python
 iris = fx.load("iris", lazy=True)
 ```
 
-which returns a [__polars LazyFrame__](https://docs.pola.rs/api/python/stable/reference/lazyframe/index.html)
+which returns a [**polars LazyFrame**](https://docs.pola.rs/api/python/stable/reference/lazyframe/index.html)
 
-Both these operations create local copies of the datasets
-by default ```cache=True```.
+Both these operations create local copies of the datasets by default `cache=True`.
 
-#### Available datasets
+#### Available datasets {#available-datasets}
 
 To see the list of available datasets, run:
 
-```python
+``` python
 fx.available()
 ```
 
-```python
+``` python
 {'remote': ['iris', 'mpg', 'netflix', 'starbucks', 'titanic'], 'local': ['titanic']}
 ```
 
-which returns a dictionary of both __locally__ and __remotely__ available datasets.
+which returns a dictionary of both **locally** and **remotely** available datasets.
 
-To see only __local__ or __remote__ datasets, run:
+To see only **local** or **remote** datasets, run:
 
-```python
+``` python
 fx.available("local")
 fx.available("remote")
 ```
 
-```python
+``` python
 {'local': ['titanic']}
 {'remote': ['iris', 'mpg', 'netflix', 'starbucks', 'titanic']}
 ```
 
-#### Getting information on Datasets
+#### Getting information on Datasets {#getting-information-on-datasets}
 
 To get information on a dataset, run:
 
-```python
+``` python
 fx.about("mpg") # basically the same as `fx.about("mpg", mode="print")`
 ```
 
 which will print the information on the dataset as the following:
 
-```text
+``` text
 NAME    : mpg
 SOURCE  : https://www.kaggle.com/datasets/uciml/autompg-dataset
 LICENSE : CC0: Public Domain
@@ -120,14 +119,14 @@ OG NAME : autompg-dataset
 
 Or you can get the information as a single row polars.DataFrame by running:
 
-```python
+``` python
 row = fx.about("mpg", mode="row")
 print(row)
 ```
 
-which will print the information on the dataset __ASCII art__ as the following:
+which will print the information on the dataset **ASCII art** as the following:
 
-```text
+``` text
 shape: (1, 4)
 ┌──────┬─────────────────────────────────┬────────────────────┬────────┐       
 │ name ┆ source                          ┆ license            ┆ origin │       
@@ -140,11 +139,11 @@ shape: (1, 4)
 
 or you can simply treat `row` as a polars DataFrame in your code.
 
-#### Getting Dataset URLs
+#### Getting Dataset URLs {#getting-dataset-urls}
 
 In case you need the file links.
 
-```python
+``` python
 url_pokemon = fx.get_url("pokemon")
 ```
 
@@ -152,21 +151,21 @@ by default, the format is " feather".
 
 Optionally, you can specify the format of the dataset.
 
-```python
+``` python
 url_pokemon_csv = fx.get_url("pokemon", format="csv")
 ```
 
-### CLI
+### CLI {#cli}
 
 Get a single dataset:
 
-```shell
+``` shell
 fx get iris
 ```
 
 or get multiple datasets:
 
-```shell
+``` shell
 fx get iris mpg titanic
 ```
 
@@ -174,13 +173,13 @@ which will download dataset(s) to the current directory.
 
 For more parameters
 
-```shell
+``` shell
 fx get --help
 ```
 
-To get the name of the available datasets on the __remote server__.
+To get the name of the available datasets on the **remote server**.
 
-```shell
+``` shell
 fx list
 ```
 
