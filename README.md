@@ -21,7 +21,7 @@ Built on top of [Polars](https://pola.rs/).
         -   [Getting Dataset URLs](#getting-dataset-urls)
     -   [CLI](#cli)
 
-## Installation {#installation}
+## Installation
 
 To get started, install the library with:
 
@@ -29,15 +29,15 @@ To get started, install the library with:
 pip install framex
 ```
 
-## Usage {#usage}
+## Usage
 
-### Python {#python}
+### Pytho
 
 ``` python
 import framex as fx
 ```
 
-#### Loading datasets {#loading-datasets}
+#### Loading datasets
 
 ``` python
 iris = fx.load("iris")
@@ -73,7 +73,7 @@ which returns a [**polars LazyFrame**](https://docs.pola.rs/api/python/stable/re
 
 Both these operations create local copies of the datasets by default `cache=True`.
 
-#### Available datasets {#available-datasets}
+#### Available datasets
 
 To see the list of available datasets, run:
 
@@ -99,7 +99,7 @@ fx.available("remote")
 {'remote': ['iris', 'mpg', 'netflix', 'starbucks', 'titanic']}
 ```
 
-#### Getting information on Datasets {#getting-information-on-datasets}
+#### Getting information on Datasets
 
 To get information on a dataset, run:
 
@@ -139,7 +139,7 @@ shape: (1, 4)
 
 or you can simply treat `row` as a polars DataFrame in your code.
 
-#### Getting Dataset URLs {#getting-dataset-urls}
+#### Getting Dataset URLs
 
 In case you need the file links.
 
@@ -155,7 +155,7 @@ Optionally, you can specify the format of the dataset.
 url_pokemon_csv = fx.get_url("pokemon", format="csv")
 ```
 
-### CLI {#cli}
+### CLI
 
 Get a single dataset:
 
