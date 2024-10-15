@@ -1,4 +1,4 @@
-![Banner](.github/framex_banner.png)
+![Banner](.github/framex_banner_narrower.png)
 
 # framex
 
