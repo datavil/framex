@@ -1,12 +1,11 @@
 ![Banner](.github/framex_banner_narrower.png)
-
-# framex
-
 A [DataVil](https://github.com/datavil) project.
+
+# FrameX
 
 [![GitHub](https://img.shields.io/badge/GitHub-100000?style=flat&logo=github&logoColor=white)](https://github.com/Zaf4/framex) [![PyPI](https://img.shields.io/pypi/v/framex?color=blue)](https://pypi.org/project/framex/)
 
-**Framex** is a light-weight, dataset fetching library for fast **prototyping**, **tutorial creation**, and **experimenting**.
+**FrameX** is a light-weight, dataset fetching library for fast **prototyping**, **tutorial creation**, and **experimenting**.
 
 Built on top of [Polars](https://pola.rs/).
 
