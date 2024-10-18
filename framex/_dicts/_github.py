@@ -45,7 +45,7 @@ def _get_names(api_url: str) -> dict[str, str]:
 
     # Extract .feather files
     datasets = {
-        file["name"].rstrip(f".{_EXTENSION}"): file["download_url"]
+        file["name"][:-len(f".{_EXTENSION}")]: file["download_url"]
         for file in files
         if isinstance(file, dict) and file.get("name", "").endswith(f".{_EXTENSION}")
     }

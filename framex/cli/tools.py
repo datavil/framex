@@ -1,4 +1,5 @@
 import argparse
+import importlib.metadata
 
 from framex.cli._cli import get
 from framex.datasets import about, available
@@ -37,7 +38,8 @@ def main():
     info_parser.add_argument("datasets", nargs="+", help="info about a dataset(s)")
 
     # Subcommand: list
-    list_parser = subparsers.add_parser("list", help="List available datasets")  # noqa: F841
+    subparsers.add_parser("list", help="List available datasets")  # noqa: F841
+    subparsers.add_parser("version", help="Show version")  # noqa: F841
     args = parser.parse_args()
     if args.command is None:
         parser.print_help()  # Show help if no command is provided
@@ -53,6 +55,9 @@ def main():
             )
     elif args.command == "list":
         print(available()["remote"])
+
+    elif args.command == "version":
+        print(importlib.metadata.version("framex"))
 
     elif args.command == "about":
         for dataset in args.datasets:
