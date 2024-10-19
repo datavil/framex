@@ -9,17 +9,6 @@ A [DataVil](https://github.com/datavil) project.
 
 Built on top of [Polars](https://pola.rs/).
 
-## Contents
-
--   [Installation](#installation)
--   [Usage](#usage)
-    -   [Python](#python)
-        -   [Loading datasets](#loading-datasets)
-        -   [Listing available datasets](#available-datasets)
-        -   [Getting information on Datasets](#getting-information-on-datasets)
-        -   [Getting Dataset URLs](#getting-dataset-urls)
-    -   [CLI](#cli)
-
 ## Installation
 
 To get started, install the library with:
@@ -30,7 +19,7 @@ pip install framex
 
 ## Usage
 
-### Pytho
+### Python
 
 ``` python
 import framex as fx
