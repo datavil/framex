@@ -34,12 +34,12 @@ def main():
         action="store_true",
         help="Whether to overwrite the dataset if it already exists.",
     )
-    info_parser = subparsers.add_parser("about", help="info about a dataset")
-    info_parser.add_argument("datasets", nargs="+", help="info about a dataset(s)")
+    info_parser = subparsers.add_parser("about", help="Info about dataset(s)")
+    info_parser.add_argument("datasets", nargs="+", help="Info about dataset(s)")
 
     # Subcommand: list
-    subparsers.add_parser("list", help="List available datasets")  # noqa: F841
-    subparsers.add_parser("version", help="Show version")  # noqa: F841
+    subparsers.add_parser("list", help="List available datasets")
+    subparsers.add_parser("version", help="Show version")
     args = parser.parse_args()
     if args.command is None:
         parser.print_help()  # Show help if no command is provided
@@ -47,12 +47,16 @@ def main():
 
     elif args.command == "get":
         for dataset in args.datasets:
-            get(
-                name=dataset,
-                dir=args.dir,
-                format=args.format,
-                overwrite=args.overwrite,
-            )
+            try:
+                get(
+                    name=dataset,
+                    dir=args.dir,
+                    format=args.format,
+                    overwrite=args.overwrite,
+                )
+            except ValueError:
+                print(f"Dataset `{dataset}` not found.")
+
     elif args.command == "list":
         print(available()["remote"])
 
@@ -61,8 +65,11 @@ def main():
 
     elif args.command == "about":
         for dataset in args.datasets:
-            about(name=dataset, mode="print")
-            print()
+            try:
+                about(name=dataset, mode="print")
+                print()
+            except ValueError:
+                print(f"Dataset `{dataset}` not found.")
     else:
         msg = f"Invalid command: {args.command}"
         raise ValueError(msg)
