@@ -145,6 +145,8 @@ url_pokemon_csv = fx.get_url("pokemon", format="csv")
 
 ### CLI
 
+#### get
+
 Get a single dataset:
 
 ``` shell
@@ -159,11 +161,19 @@ fx get iris mpg titanic
 
 which will download dataset(s) to the current directory.
 
-For more parameters
+to get the datasets into cache directory:
 
 ``` shell
-fx get --help
+fx get iris mpg titanic --dir cache
 ```
+
+or to a specific directory:
+
+``` shell
+fx get iris mpg titanic --dir data
+```
+
+#### list
 
 To get the name of the available datasets on the **remote server**.
 
@@ -172,3 +182,33 @@ fx list
 ```
 
 this will list all available datasets on the remote server.
+
+#### about
+
+To get information on a dataset or datasets, run:
+
+``` shell
+fx about mpg iris
+```
+
+#### show
+
+To show a preview of a single dataset
+
+``` shell
+fx show iris
+```
+
+#### describe
+
+To describe (or summarize) a dataset
+
+``` shell
+fx describe iris
+```
+
+For more parameters
+
+``` shell
+fx get --help
+```
