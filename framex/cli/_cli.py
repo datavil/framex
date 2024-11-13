@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING, Callable, Literal
 from polars import read_ipc, read_parquet
 
 from framex._dicts import _REMOTE_DATASETS
-from framex._dicts._constants import _EXTENSION
+from framex._dicts._constants import _EXTENSION, _LOCAL_DIR
 
 # from framex._dicts._constants import _EXTENSION, _LOCAL_DIR
 
@@ -42,12 +42,16 @@ def _save(
         frame.write_csv(path)
     elif format == "json":
         frame.write_ndjson(path)
+    else:
+        msg = f"Invalid format: {format}. format must be one of 'feather', 'parquet', 'csv', 'json', 'ipc'"
+        raise ValueError(msg)
+    return
 
 
 def get(
     name: str,
     *,
-    dir: str | Path | None = None,
+    dir: str | Path | Literal["cache"] | None = None,
     overwrite: bool = False,
     format: str | Literal["feather", "parquet", "csv", "json", "ipc"] = _EXTENSION,
 ) -> None:
@@ -75,9 +79,12 @@ def get(
     None
     """
     if dir is None:
-        dir = Path().resolve()
+        dir = Path().resolve() # current working directory
+    elif dir == "cache":
+        dir = _LOCAL_DIR # local cache directory
     else:
-        dir = Path(dir).resolve()
+        dir = Path(dir).resolve() # the directory provided by the user
+
     # select the function to load the dataset
     if _EXTENSION == "parquet":
         loader: Callable[..., DataFrame] = read_parquet
