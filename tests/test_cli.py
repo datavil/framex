@@ -1,15 +1,17 @@
-
 import shutil
 import subprocess
 from pathlib import Path
 
-def red(text):
+
+def red(text) -> str:  # noqa: D103
     return f"\033[31m{text}\033[0m"
 
-def green(text):
+
+def green(text) -> str:  # noqa: D103
     return f"\033[32m{text}\033[0m"
 
-def blue(text):
+
+def blue(text) -> str:  # noqa: D103
     return f"\033[34m{text}\033[0m"
 
 
@@ -22,6 +24,7 @@ def run_command(command):  # noqa: D103
         return None
 
     return result
+
 
 def test_cli():
     """Test the CLI components."""
@@ -43,8 +46,22 @@ def test_cli():
     # test about multiple
     run_command("fx about titanic mpg")
 
+    # test version
+    run_command("fx --version")
+
+    # test show
+    run_command("fx show iris")
+
+    # test describe
+    run_command("fx describe titanic")
+
+    # INVALIDS
     # test an invalid command
     run_command("fx invalid")
+
+    # test an invalid dataset
+    run_command("fx show invalid")
+    run_command("fx about invalid")
 
     return
 
@@ -60,6 +77,7 @@ def main():  # noqa: D103
     shutil.rmtree("data", ignore_errors=True)
 
     return
+
 
 if __name__ == "__main__":
     main()

@@ -7,8 +7,17 @@ from polars import read_ipc, read_parquet
 
 from framex._dicts import _REMOTE_DATASETS
 from framex._dicts._constants import _EXTENSION, _LOCAL_DIR
+from framex.utils._colors import cyan, green, magenta, red, yellow
 
 # from framex._dicts._constants import _EXTENSION, _LOCAL_DIR
+
+""" 
+cyan: path to the dataset
+green: saved
+yellow: overwritten
+magenta: warning (use --overwrite or -o to overwrite)
+red: errors
+"""
 
 if TYPE_CHECKING:
     from polars import DataFrame
@@ -43,7 +52,7 @@ def _save(
     elif format == "json":
         frame.write_ndjson(path)
     else:
-        msg = f"Invalid format: {format}. format must be one of 'feather', 'parquet', 'csv', 'json', 'ipc'"
+        msg = red(f"Invalid format: {format}. format must be one of 'feather', 'parquet', 'csv', 'json', 'ipc'")
         raise ValueError(msg)
     return
 
@@ -93,7 +102,7 @@ def get(
 
     # check if the dataset is available
     if name not in _REMOTE_DATASETS:
-        msg = f"Dataset {name} not found."
+        msg = red(f"Dataset `{name}` not found.")
         raise ValueError(msg)
     else:
         frame = loader(_REMOTE_DATASETS.get(name))
@@ -105,14 +114,16 @@ def get(
 
     if path in cached:
         if not overwrite:
-            msg = f"File {path} already exists.\nUse `--overwrite` to overwrite."
+            msg = f"Dataset `{cyan(path)}` already exists.\n{magenta('Use `--overwrite` or `-o` to overwrite.')}"
             print(msg)
             return
         else:
-            print(f"Overwriting: {path}")
+            ov_msg = yellow('Overwritten:')
+            print(f"{ov_msg:<22}{cyan(path)}")
             _save(frame=frame, path=path, format=format)
     elif path not in cached:
+        sv_msg = green('Saved:')
         _save(frame=frame, path=path, format=format)
-        print(f"Saving: {path}")
+        print(f"{sv_msg:<22}{cyan(path)}")
 
     return

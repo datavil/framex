@@ -4,6 +4,7 @@ from typing import Literal
 
 from framex._dicts import _DATASETS
 from framex._dicts._constants import _EXTENSION
+from framex.utils._colors import red
 
 
 def get_url(
@@ -27,7 +28,7 @@ def get_url(
         URL of the dataset.
     """
     if name not in _DATASETS:
-        msg = f"Dataset {name} not found."
+        msg = red(f"Dataset {name} not found.")
         raise ValueError(msg)
 
     url = _DATASETS.get(name)
