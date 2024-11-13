@@ -118,12 +118,12 @@ def get(
             print(msg)
             return
         else:
-            ov_msg = yellow('Overwritten:')
-            print(f"{ov_msg:<22}{cyan(path)}")
             _save(frame=frame, path=path, format=format)
+            ov_msg = yellow('Overwritten:')
+            print(f"{ov_msg}{cyan(path)}")
     elif path not in cached:
-        sv_msg = green('Saved:')
         _save(frame=frame, path=path, format=format)
-        print(f"{sv_msg:<22}{cyan(path)}")
+        sv_msg = green('Saved:')
+        print(f"{sv_msg}{cyan(path)}")
 
     return
