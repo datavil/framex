@@ -3,7 +3,7 @@ import importlib.metadata
 
 from framex.cli._cli import get
 from framex.datasets import about, available, load
-from framex.utils._colors import blue, red, cyan
+from framex.utils._colors import blue, bold, cyan, red
 
 
 def main():  # noqa: D103
@@ -43,6 +43,12 @@ def main():  # noqa: D103
         action="store_true",
         help="Whether to overwrite the dataset if it already exists.",
     )
+    get_parser.add_argument(
+        "--cache",
+        "-c",
+        action="store_true",
+        help="Whether to save to the local cache directory.",
+    )
     # ------------------------------"about" subparsers------------------------------
     info_parser = subparsers.add_parser("about", help="Info about dataset(s)")
     info_parser.add_argument("datasets", nargs="+", help="Info about dataset(s)")
@@ -54,7 +60,9 @@ def main():  # noqa: D103
     )
     show_parser.add_argument("dataset", help="Dataset name")
     # ------------------------------"describe" subparsers------------------------------
-    describe_parser = subparsers.add_parser("describe", help="Describe (or summarize) a dataset")
+    describe_parser = subparsers.add_parser(
+        "describe", help="Describe (or summarize) a dataset"
+    )
     describe_parser.add_argument("dataset", help="Dataset name")
 
     # PARSE ALL ARGS ------------------------------
@@ -74,9 +82,10 @@ def main():  # noqa: D103
                     dir=args.dir,
                     format=args.format,
                     overwrite=args.overwrite,
+                    cache=args.cache,
                 )
             except ValueError:
-                print(red(f"Dataset `{dataset}` not found."))
+                print(red(f"Dataset `{bold(dataset)}` not found."))
 
     # ------------------------------ list ------------------------------
     elif args.command == "list":
@@ -89,7 +98,7 @@ def main():  # noqa: D103
                 about(name=dataset, mode="print")
                 print()
             except ValueError:
-                print(red(f"Dataset `{dataset}` not found."))
+                print(red(f"Dataset `{bold(dataset)}` not found."))
     # ------------------------------ show ------------------------------
     elif args.command == "show":
         try:
@@ -97,17 +106,17 @@ def main():  # noqa: D103
             print(frame)
 
         except ValueError:
-            print(red(f"Dataset `{args.dataset}` not found."))
+            print(red(f"Dataset `{bold(dataset)}` not found."))
     # ------------------------------ describe ------------------------------
     elif args.command == "describe":
         try:
             frame = load(name=args.dataset)
             print(frame.describe())
         except ValueError:
-            print(red(f"Dataset `{args.dataset}` not found."))
+            print(red(f"Dataset `{bold(dataset)}` not found."))
 
-    else: # argparse handles this part...
-        msg = red(f"Invalid command: `{args.command}`")
+    else:  # argparse handles this part...
+        msg = red(f"Invalid command: `{bold(args.command)}`")
         raise ValueError(msg)
 
     return

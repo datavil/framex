@@ -7,7 +7,14 @@ from polars import read_ipc, read_parquet
 
 from framex._dicts import _REMOTE_DATASETS
 from framex._dicts._constants import _EXTENSION, _LOCAL_DIR
-from framex.utils._colors import cyan, green, magenta, red, yellow
+from framex.utils._colors import (
+    bold,
+    cyan,
+    green,
+    magenta,
+    red,
+    yellow,
+)
 
 # from framex._dicts._constants import _EXTENSION, _LOCAL_DIR
 
@@ -52,7 +59,9 @@ def _save(
     elif format == "json":
         frame.write_ndjson(path)
     else:
-        msg = red(f"Invalid format: {format}. format must be one of 'feather', 'parquet', 'csv', 'json', 'ipc'")
+        msg = red(
+            f"Invalid format: {bold(format)} format must be one of 'feather', 'parquet', 'csv', 'json', 'ipc'"
+        )
         raise ValueError(msg)
     return
 
@@ -60,9 +69,10 @@ def _save(
 def get(
     name: str,
     *,
-    dir: str | Path | Literal["cache"] | None = None,
+    dir: str | Path | None = None,
     overwrite: bool = False,
     format: str | Literal["feather", "parquet", "csv", "json", "ipc"] = _EXTENSION,
+    cache: bool = False,
 ) -> None:
     """
     Loads dataset by with the given name if available.
@@ -83,16 +93,23 @@ def get(
         The format to save the dataset in.
         Default is "feather"
 
+    cache : bool, optional
+        Whether to save to the local cache directory.
+        Default is False
+
     Returns
     -------
     None
     """
     if dir is None:
-        dir = Path().resolve() # current working directory
-    elif dir == "cache":
-        dir = _LOCAL_DIR # local cache directory
+        dir = Path().resolve()  # current working directory
+    elif cache:
+        dir = _LOCAL_DIR  # local cache directory
+        if dir is not None:
+            msg = yellow(f"Both `{bold('--dir')}` and `{bold('--cache')}` used, ignoring {bold('--dir')}.")
+            print(msg)
     else:
-        dir = Path(dir).resolve() # the directory provided by the user
+        dir = Path(dir).resolve()  # the directory provided by the user
 
     # select the function to load the dataset
     if _EXTENSION == "parquet":
@@ -102,28 +119,31 @@ def get(
 
     # check if the dataset is available
     if name not in _REMOTE_DATASETS:
-        msg = red(f"Dataset `{name}` not found.")
+        msg = red(f"Dataset `{bold(name)}` not found.")
         raise ValueError(msg)
     else:
         frame = loader(_REMOTE_DATASETS.get(name))
 
     # list of all files in the directory
     dir = Path(dir).resolve()
+    if not dir.exists():
+        msg = red(f"Directory `{bold(dir)}` does not exist.")
+        raise ValueError(msg)
     cached = list(dir.glob(f"*{format}"))
     path = dir / f"{name}.{format}"
 
     if path in cached:
         if not overwrite:
-            msg = f"Dataset `{cyan(path)}` already exists.\n{magenta('Use `--overwrite` or `-o` to overwrite.')}"
+            msg = f"Dataset `{cyan(bold(name))}` already exists at `{cyan(path)}`.\n"
+            msg += magenta(f"Use {bold("--overwrite")} or {bold("-o")} to overwrite.\n")
+            msg += magenta(f"Or use {bold("--dir")} or {bold("-d")} to specify a different directory.")
             print(msg)
             return
         else:
             _save(frame=frame, path=path, format=format)
-            ov_msg = yellow('Overwritten:')
-            print(f"{ov_msg} {cyan(path)}")
+            print(f"{yellow(bold("Overwritten:"))} {cyan(path)}")
     elif path not in cached:
         _save(frame=frame, path=path, format=format)
-        sv_msg = green('Saved:')
-        print(f"{sv_msg} {cyan(path)}")
+        print(f"{green(bold("Saved:"))} {cyan(path)}")
 
     return

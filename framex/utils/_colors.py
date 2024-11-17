@@ -1,13 +1,3 @@
-"""
-Black: 30
-Red: 31
-Green: 32
-Yellow: 33
-Blue: 34
-Magenta: 35
-Cyan: 36
-White: 37
-"""
 
 
 def black(text) -> str:  # noqa: D103
@@ -41,6 +31,28 @@ def cyan(text) -> str:  # noqa: D103
 def white(text) -> str:  # noqa: D103
     return f"\033[37m{text}\033[0m"
 
+def bold(text: str) -> str:  # noqa: D103
+    return f"\033[1m{text}\033[22m"  # Adding bold escape codes
 
-def bold(text) -> str:  # noqa: D103
-    return f"\033[1m{text}\033[0m"
+if __name__ == "__main__":
+    # print(red("red"), bold(red("bold")))
+    # print(green("green"), bold(green("bold")))
+    # print(yellow("yellow"), bold(yellow("bold")))
+    # print(blue("blue"), bold(blue("bold")))
+    # print(magenta("magenta"), bold(magenta("bold")))
+    format = "csvx"
+    msg = f"Invalid format: {format}. format must be one of 'feather', 'parquet', 'csv', 'json', 'ipc'"
+    print(bold(red(msg)))
+    msg = f"Invalid format: {bold(format)}. format must be one of 'feather', 'parquet', 'csv', 'json', 'ipc'"
+    print(red(msg))
+    # print(red(f"I have some bold text, {bold("I have some bold text")} but should reset here"))
+    # print(red(f"I have some bold text, {bold('I have some bold text')} but should reset here"))
+    name = "mpg"
+    path = "C:/Users/zafi_/.cache/framex/mpg.csv"
+    msg = f"Dataset `{cyan(bold(name))}` already exists at `{cyan(path)}`.\n"
+    msg += magenta(f"Use {bold("--overwrite")} or {bold("-o")} to overwrite.\n")
+    msg += magenta(f"Or use {bold("--dir")} or {bold("-d")} to specify a different directory.")
+    print(msg)
+
+    print(f"{yellow(bold("Overwritten:"))} {cyan(path)}")
+    print(f"{green(bold("Saved:"))} {cyan(path)}")
