@@ -87,6 +87,8 @@ def main():  # noqa: D103
                 )
             except ValueError:
                 print(red(f"Dataset `{bold(dataset)}` not found."))
+            except FileNotFoundError:
+                print(red(f"Directory `{bold(args.dir)}` does not exist."))
 
     # ------------------------------ list ------------------------------
     elif args.command == "list":
@@ -107,14 +109,14 @@ def main():  # noqa: D103
             print(frame)
 
         except ValueError:
-            print(red(f"Dataset `{bold(dataset)}` not found."))
+            print(red(f"Dataset `{bold(args.dataset)}` not found."))
     # ------------------------------ describe ------------------------------
     elif args.command == "describe":
         try:
             frame = load(name=args.dataset)
             print(frame.describe())
         except ValueError:
-            print(red(f"Dataset `{bold(dataset)}` not found."))
+            print(red(f"Dataset `{bold(args.dataset)}` not found."))
 
     else:  # argparse handles this part...
         msg = red(f"Invalid command: `{bold(args.command)}`")

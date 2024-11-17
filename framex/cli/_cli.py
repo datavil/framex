@@ -101,7 +101,7 @@ def get(
     -------
     None
     """
-    if dir is None:
+    if dir is None and not cache:
         dir = Path().resolve()  # current working directory
     elif cache:
         if dir is not None:
@@ -129,7 +129,8 @@ def get(
     dir = Path(dir).resolve()
     if not dir.exists():
         msg = red(f"Directory `{bold(dir)}` does not exist.")
-        raise ValueError(msg)
+        raise FileNotFoundError(msg)
+
     cached = list(dir.glob(f"*{format}"))
     path = dir / f"{name}.{format}"
 
