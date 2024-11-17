@@ -40,3 +40,7 @@ def cyan(text) -> str:  # noqa: D103
 
 def white(text) -> str:  # noqa: D103
     return f"\033[37m{text}\033[0m"
+
+
+def bold(text) -> str:  # noqa: D103
+    return f"\033[1m{text}\033[0m"
