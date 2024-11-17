@@ -2,6 +2,7 @@ import argparse
 import importlib.metadata
 
 from framex.cli._cli import get
+from framex.cli._exceptions import InvalidFormatError
 from framex.datasets import about, available, load
 from framex.utils._colors import blue, bold, cyan, red
 
@@ -85,10 +86,13 @@ def main():  # noqa: D103
                     overwrite=args.overwrite,
                     cache=args.cache,
                 )
-            except ValueError:
-                print(red(f"Dataset `{bold(dataset)}` not found."))
-            except FileNotFoundError:
-                print(red(f"Directory `{bold(args.dir)}` does not exist."))
+            except InvalidFormatError as err:
+                print(err)
+            except FileNotFoundError as err:
+                print(err)
+                return
+            except ValueError as err:
+                print(err)
 
     # ------------------------------ list ------------------------------
     elif args.command == "list":
@@ -126,4 +130,4 @@ def main():  # noqa: D103
 
 
 if __name__ == "__main__":
-    main()
+    pass

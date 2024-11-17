@@ -43,6 +43,8 @@ def test_cli():
     run_command("fx get iris --dir wrong --format feather --overwrite")
     # test both dir and cache ##  WARNING
     run_command("fx get titanic --dir ./data --format feather --cache")
+    # test get with invalid format ## ERROR
+    run_command("fx get titanic --format batman")
 
     # test list
     run_command("fx list")
@@ -64,11 +66,11 @@ def test_cli():
 
     # INVALIDS
     # test an invalid command
-    run_command("fx invalid")
+    run_command("fx do")
 
     # test an invalid dataset
-    run_command("fx show invalid")
-    run_command("fx about invalid")
+    run_command("fx show joker")
+    run_command("fx about beatles")
 
     return
 

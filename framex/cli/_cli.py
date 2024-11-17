@@ -7,14 +7,15 @@ from polars import read_ipc, read_parquet
 
 from framex._dicts import _REMOTE_DATASETS
 from framex._dicts._constants import _EXTENSION, _LOCAL_DIR
+from framex.cli._exceptions import InvalidFormatError
 from framex.utils._colors import (
+    blue,
     bold,
     cyan,
     green,
     magenta,
     red,
     yellow,
-    blue,
 )
 
 # from framex._dicts._constants import _EXTENSION, _LOCAL_DIR
@@ -63,7 +64,7 @@ def _save(
         msg = red(
             f"Invalid format: {bold(format)} format must be one of 'feather', 'parquet', 'csv', 'json', 'ipc'"
         )
-        raise ValueError(msg)
+        raise InvalidFormatError(msg)
     return
 
 
@@ -106,7 +107,9 @@ def get(
         dir = Path().resolve()  # current working directory
     elif cache:
         if dir is not None:
-            msg = yellow(f"Both `{bold('--dir')}` and `{bold('--cache')}` used, ignoring {bold('--dir')}.")
+            msg = yellow(
+                f"Both `{bold('--dir')}` and `{bold('--cache')}` used, ignoring {bold('--dir')}."
+            )
             print(msg)
 
         dir = _LOCAL_DIR  # local cache directory
@@ -139,7 +142,9 @@ def get(
         if not overwrite:
             msg = f"Dataset `{cyan(bold(name))}` already exists at `{cyan(path)}`.\n"
             msg += magenta(f"Use {bold('--overwrite')} or {bold('-o')} to overwrite ")
-            msg += magenta(f"or use {bold('-dir')} or {bold('-d')} to specify a different directory.")
+            msg += magenta(
+                f"or use {bold('-dir')} or {bold('-d')} to specify a different directory."
+            )
             print(msg)
             return
         else:
