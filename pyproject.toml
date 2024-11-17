@@ -3,7 +3,7 @@ name = "framex"
 version = "0.6.5"
 description = "dataframe operations"
 authors = ["Zaf4 <zafermolbio@gmail.com>"]
-license = "MIT"
+license = "Apache-2.0"
 readme = "README.md"
 
 [tool.poetry.dependencies]
