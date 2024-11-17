@@ -2,9 +2,9 @@ import argparse
 import importlib.metadata
 
 from framex.cli._cli import get
-from framex.cli._exceptions import InvalidFormatError
 from framex.datasets import about, available, load
 from framex.utils._colors import blue, bold, cyan, red
+from framex.utils._exceptions import DatasetNotFoundError, InvalidFormatError
 
 
 def main():  # noqa: D103
@@ -91,7 +91,7 @@ def main():  # noqa: D103
             except FileNotFoundError as err:
                 print(err)
                 return
-            except ValueError as err:
+            except DatasetNotFoundError as err:
                 print(err)
 
     # ------------------------------ list ------------------------------
@@ -104,22 +104,25 @@ def main():  # noqa: D103
             try:
                 about(name=dataset, mode="print")
                 print()
-            except ValueError:
+            except DatasetNotFoundError:
                 print(red(f"Dataset `{bold(dataset)}` not found."))
+            except ValueError as err:
+                print(red(err))
+
     # ------------------------------ show ------------------------------
     elif args.command == "show":
         try:
             frame = load(name=args.dataset)
             print(frame)
 
-        except ValueError:
+        except DatasetNotFoundError: # err not colored
             print(red(f"Dataset `{bold(args.dataset)}` not found."))
     # ------------------------------ describe ------------------------------
     elif args.command == "describe":
         try:
             frame = load(name=args.dataset)
             print(frame.describe())
-        except ValueError:
+        except DatasetNotFoundError: # err not colored
             print(red(f"Dataset `{bold(args.dataset)}` not found."))
 
     else:  # argparse handles this part...

@@ -6,6 +6,7 @@ from polars import read_ipc, read_parquet, scan_ipc, scan_parquet
 
 from framex._dicts import _DATASETS, _LOCAL_CACHES
 from framex._dicts._constants import _EXTENSION, _LOCAL_DIR
+from framex.utils._exceptions import DatasetNotFoundError
 
 if TYPE_CHECKING:
     from polars import DataFrame, LazyFrame
@@ -52,7 +53,7 @@ def load(
     # check if the dataset is available
     if name not in _DATASETS:
         msg = f"Dataset {name} not found."
-        raise ValueError(msg)
+        raise DatasetNotFoundError(msg)
 
     # local_path = _LOCAL_CACHES.get(name)
     # load the dataset

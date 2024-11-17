@@ -6,6 +6,7 @@ import polars
 
 from framex._dicts import _LOCAL_CACHES, _REMOTE_DATASETS
 from framex._dicts._constants import _INFO_FILE
+from framex.utils._exceptions import DatasetNotFoundError
 
 
 def available(option: str | None = None) -> dict[str, list[str]]:
@@ -68,11 +69,10 @@ def about(
     None
     """
     df = polars.read_csv(_INFO_FILE)
-    try:
-        row = df.filter(polars.col("name") == name)
-    except Exception as e:
-        msg = f"Dataset {name} not found in datasets_info.csv"
-        raise ValueError(msg) from e
+    row = df.filter(polars.col("name") == name)
+    if row.height == 0: # no dataset found
+        msg = f"Dataset `{name}` not found in datasets_info.csv"
+        raise DatasetNotFoundError(msg)
 
     if mode == "row":  #
         return row
@@ -84,5 +84,5 @@ def about(
         print(f"{og_id:<8}: {og_name}")
         return
     else:
-        msg = "Invalid mode. Please use either 'print' or 'row'."
+        msg = "Invalid mode. Please use either `print` or `row`."
         raise ValueError(msg)

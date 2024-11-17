@@ -7,7 +7,6 @@ from polars import read_ipc, read_parquet
 
 from framex._dicts import _REMOTE_DATASETS
 from framex._dicts._constants import _EXTENSION, _LOCAL_DIR
-from framex.cli._exceptions import InvalidFormatError
 from framex.utils._colors import (
     blue,
     bold,
@@ -17,6 +16,7 @@ from framex.utils._colors import (
     red,
     yellow,
 )
+from framex.utils._exceptions import DatasetNotFoundError, InvalidFormatError
 
 # from framex._dicts._constants import _EXTENSION, _LOCAL_DIR
 
@@ -125,7 +125,7 @@ def get(
     # check if the dataset is available
     if name not in _REMOTE_DATASETS:
         msg = red(f"Dataset `{bold(name)}` not found.")
-        raise ValueError(msg)
+        raise DatasetNotFoundError(msg)
     else:
         frame = loader(_REMOTE_DATASETS.get(name))
 
