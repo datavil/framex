@@ -11,6 +11,7 @@ def main():  # noqa: D103
     # --version
     parser.add_argument(
         "--version",
+        "-v",
         action="version",
         version=f"framex version {blue(importlib.metadata.version('framex'))}",
         help="Show version",
@@ -27,7 +28,7 @@ def main():  # noqa: D103
         "--dir",
         "-d",
         help="Directory to save the dataset to. Defaults to current directory.",
-        default=".",
+        default=None,
         metavar="",
     )
     get_parser.add_argument(

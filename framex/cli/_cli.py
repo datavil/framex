@@ -104,10 +104,12 @@ def get(
     if dir is None:
         dir = Path().resolve()  # current working directory
     elif cache:
-        dir = _LOCAL_DIR  # local cache directory
         if dir is not None:
             msg = yellow(f"Both `{bold('--dir')}` and `{bold('--cache')}` used, ignoring {bold('--dir')}.")
             print(msg)
+        else:
+            dir = _LOCAL_DIR  # local cache directory
+
     else:
         dir = Path(dir).resolve()  # the directory provided by the user
 
