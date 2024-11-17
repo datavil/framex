@@ -107,9 +107,8 @@ def get(
         if dir is not None:
             msg = yellow(f"Both `{bold('--dir')}` and `{bold('--cache')}` used, ignoring {bold('--dir')}.")
             print(msg)
-        else:
-            dir = _LOCAL_DIR  # local cache directory
 
+        dir = _LOCAL_DIR  # local cache directory
     else:
         dir = Path(dir).resolve()  # the directory provided by the user
 
@@ -143,9 +142,9 @@ def get(
             return
         else:
             _save(frame=frame, path=path, format=format)
-            print(f"{yellow(bold("Overwritten:"))} {cyan(path)}")
+            print(f"{yellow(bold('Overwritten:'))} {cyan(path)}")
     elif path not in cached:
         _save(frame=frame, path=path, format=format)
-        print(f"{green(bold("Saved:"))} {cyan(path)}")
+        print(f"{green(bold('Saved:'))} {cyan(path)}")
 
     return

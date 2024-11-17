@@ -13,7 +13,7 @@ def main():  # noqa: D103
         "--version",
         "-v",
         action="version",
-        version=f"framex version {blue(importlib.metadata.version('framex'))}",
+        version=f"framex {blue(importlib.metadata.version('framex'))}",
         help="Show version",
     )
     # init subparsers
