@@ -3,7 +3,7 @@ A [DataVil](https://github.com/datavil) project.
 
 # FrameX
 
-[![GitHub](https://img.shields.io/badge/GitHub-100000?style=flat&logo=github&logoColor=white)](https://github.com/Zaf4/framex) [![PyPI](https://img.shields.io/pypi/v/framex?color=blue)](https://pypi.org/project/framex/)
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=flat&logo=github&logoColor=white)](https://github.com/DataVil/framex) [![PyPI](https://img.shields.io/pypi/v/framex?color=blue)](https://pypi.org/project/framex/)
 
 **FrameX** is a light-weight, dataset fetching library for fast **prototyping**, **tutorial creation**, and **experimenting**.
 
@@ -164,7 +164,7 @@ which will download dataset(s) to the current directory.
 to get the datasets into cache directory:
 
 ``` shell
-fx get iris mpg titanic --dir cache
+fx get iris mpg titanic --cache
 ```
 
 or to a specific directory:

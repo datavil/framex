@@ -1,7 +1,7 @@
 import argparse
 import importlib.metadata
 
-from framex.cli._cli import get
+from framex.cli._cli import _get
 from framex.datasets import about, available, load
 from framex.utils._colors import blue, bold, cyan, red
 from framex.utils._exceptions import DatasetNotFoundError, InvalidFormatError
@@ -79,7 +79,7 @@ def main():  # noqa: D103
     elif args.command == "get":
         for dataset in args.datasets:
             try:
-                get(
+                _get(
                     name=dataset,
                     dir=args.dir,
                     format=args.format,

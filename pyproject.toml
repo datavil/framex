@@ -17,7 +17,7 @@ mypy = "^1.11.1"
 ipykernel = "^6.29.5"
 
 [tool.poetry.scripts]
-fx = "framex.cli.tools:main"
+fx = "framex.cli._entry:main"
 
 [build-system]
 requires = ["poetry-core"]

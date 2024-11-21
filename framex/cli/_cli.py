@@ -68,7 +68,7 @@ def _save(
     return
 
 
-def get(
+def _get(
     name: str,
     *,
     dir: str | Path | None = None,
@@ -155,3 +155,22 @@ def get(
         print(f"{green(bold('Saved:'))} {cyan(path)}")
 
     return
+
+def _bring(name: str) -> None:
+    """Bring a dataset from the cache to the current working directory.
+    or to a specified directory.
+
+    Parameters
+    ----------
+    name : str
+        Name of the dataset to bring.
+
+    Returns
+    -------
+    None
+
+    """
+    path = Path(name)
+    if not path.exists():
+        msg = f"Dataset `{name}` not found in cache."
+        raise DatasetNotFoundError(msg)
