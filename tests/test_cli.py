@@ -91,7 +91,7 @@ def main():  # noqa: D103
     test_cli()
     shutil.rmtree("data", ignore_errors=True)
 
-    shutil.rmtree(_LOCAL_DIR, ignore_errors=True)
+    # shutil.rmtree(_LOCAL_DIR, ignore_errors=True)
     return
 
 
