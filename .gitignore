@@ -5,3 +5,4 @@ token
 dist/*
 *whl
 *tar.gz
+*.csv

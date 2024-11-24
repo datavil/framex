@@ -46,8 +46,14 @@ def test_cli():
     # test get with invalid format ## ERROR
     run_command("fx get titanic --format batman")
 
+    # test bring
+    run_command("fx bring titanic --format parquet")
+
     # test list
     run_command("fx list")
+    run_command("fx list --all")
+    run_command("fx list --remote")
+    run_command("fx list --local")
 
     # test about
     run_command("fx about titanic")

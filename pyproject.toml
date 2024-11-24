@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "framex"
-version = "0.8.0"
+version = "0.9.1"
 description = "dataframe operations"
 authors = ["Zaf4 <zafermolbio@gmail.com>"]
 license = "Apache-2.0"
