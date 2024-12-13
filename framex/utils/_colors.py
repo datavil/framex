@@ -1,5 +1,3 @@
-
-
 def black(text) -> str:  # noqa: D103
     return f"\033[30m{text}\033[0m"
 
@@ -31,8 +29,10 @@ def cyan(text) -> str:  # noqa: D103
 def white(text) -> str:  # noqa: D103
     return f"\033[37m{text}\033[0m"
 
+
 def bold(text: str) -> str:  # noqa: D103
     return f"\033[1m{text}\033[22m"  # Adding bold escape codes
+
 
 if __name__ == "__main__":
     # print(red("red"), bold(red("bold")))

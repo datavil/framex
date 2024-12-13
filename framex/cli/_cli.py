@@ -260,14 +260,14 @@ def _bring(
                     msg += magenta(
                         f"Use {bold('--overwrite')} or {bold('-o')} to overwrite "
                     )
-                    raise DatasetExistsError(wrn+msg)
+                    raise DatasetExistsError(wrn + msg)
 
     return
 
 
 def _print_avail(which: Literal["all", "remote", "local"] = "all") -> None:
-    remote_datasets = list(_REMOTE_DATASETS.keys())
-    local_datasets = list(_LOCAL_CACHES_EXT.keys())
+    remote_datasets = sorted(list(_REMOTE_DATASETS.keys()), key=str.lower)
+    local_datasets = sorted(list(_LOCAL_CACHES_EXT.keys()), key=str.lower)
     spacer = "  "
     if which == "local":
         print(

@@ -151,7 +151,12 @@ def main():  # noqa: D103
     elif args.command == "bring":
         for dataset in args.datasets:
             try:
-                _bring(name=dataset, format=args.format, dir=args.dir, overwrite=args.overwrite)
+                _bring(
+                    name=dataset,
+                    format=args.format,
+                    dir=args.dir,
+                    overwrite=args.overwrite,
+                )
             except InvalidFormatError as err:
                 print(err)
             except FileNotFoundError as err:
@@ -160,7 +165,6 @@ def main():  # noqa: D103
                 print(err)
             except DatasetExistsError as err:
                 print(err)
-
 
     # ------------------------------ list ------------------------------
     elif args.command == "list":

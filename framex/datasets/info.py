@@ -9,7 +9,11 @@ from framex._dicts._constants import _INFO_FILE
 from framex.utils._exceptions import DatasetNotFoundError
 
 
-def available(option: str | None = None) -> dict[str, list[str]]:
+def available(
+    includes: str | None = None,
+    *,
+    option: str | None = None,
+) -> dict[str, list[str]]:
     """
     List available datasets.
 
@@ -29,10 +33,12 @@ def available(option: str | None = None) -> dict[str, list[str]]:
         If the option is not 'remote' or 'local'.
 
     """
-    remote_datasets = list(_REMOTE_DATASETS.keys())
-    local_datasets = list(_LOCAL_CACHES.keys())
-    remote_datasets.sort()
-    local_datasets.sort()
+    remote_datasets = sorted(list(_REMOTE_DATASETS.keys()), key=str.lower)
+    local_datasets = sorted(list(_LOCAL_CACHES.keys()), key=str.lower)
+
+    if includes is not None:
+        remote_datasets = [x for x in remote_datasets if includes in x]
+        local_datasets = [x for x in local_datasets if includes in x]
 
     if option is None:
         return {
@@ -70,7 +76,7 @@ def about(
     """
     df = polars.read_csv(_INFO_FILE)
     row = df.filter(polars.col("name") == name)
-    if row.height == 0: # no dataset found
+    if row.height == 0:  # no dataset found
         msg = f"Dataset `{name}` not found in datasets_info.csv"
         raise DatasetNotFoundError(msg)
 

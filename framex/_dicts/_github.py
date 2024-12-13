@@ -90,10 +90,10 @@ def _cache_or_remote(url: str) -> dict[str, str]:
 
     """
     now = time.time()
-    
+
     local_json = _LOCAL_DIR.parent / "datasets.json"
-    modified = local_json.stat().st_mtime
     if local_json.exists():
+        modified = local_json.stat().st_mtime
         if now - modified < 3600:
             _datasets_dict = _read_json(local_json=local_json)
             # print(f"Using cached datasets from {local_json}")
