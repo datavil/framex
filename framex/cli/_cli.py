@@ -265,9 +265,15 @@ def _bring(
     return
 
 
-def _print_avail(which: Literal["all", "remote", "local"] = "all") -> None:
+def _print_avail(which: Literal["all", "remote", "local"] = "all", includes: str | None = None) -> None:
     remote_datasets = sorted(list(_REMOTE_DATASETS.keys()), key=str.lower)
     local_datasets = sorted(list(_LOCAL_CACHES_EXT.keys()), key=str.lower)
+
+
+    if includes is not None:
+        remote_datasets = [x for x in remote_datasets if includes in x]
+        local_datasets = [x for x in local_datasets if includes in x]
+
     spacer = "  "
     if which == "local":
         print(

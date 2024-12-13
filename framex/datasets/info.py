@@ -19,6 +19,10 @@ def available(
 
     Parameters
     ----------
+    includes : str, optional
+        A string to filter the available datasets.
+        Default is None
+
     option : str, optional {"remote", "local"}
         The option to list available datasets.
         Default is None

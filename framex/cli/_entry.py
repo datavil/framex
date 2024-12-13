@@ -85,6 +85,11 @@ def main():  # noqa: D103
     info_parser.add_argument("datasets", nargs="+", help="Info about dataset(s)")
     # "list" subparsers
     list_parser = subparsers.add_parser("list", help="List available datasets")
+    list_parser.add_argument(
+        "includes",
+        help="Filter the available datasets by name.",
+        default=None,
+    )
     group = list_parser.add_mutually_exclusive_group()
     group.add_argument(
         "--local",
@@ -168,15 +173,15 @@ def main():  # noqa: D103
 
     # ------------------------------ list ------------------------------
     elif args.command == "list":
-        try:
-            if args.all or (not args.local and not args.remote):
-                _print_avail(which="all")
-            elif args.remote:
-                _print_avail(which="remote")
-            elif args.local:
-                _print_avail(which="local")
-        except KeyError as err:
-            print(err)
+            try:
+                if args.all or (not args.local and not args.remote):
+                    _print_avail(which="all", includes=args.includes)
+                elif args.remote:
+                    _print_avail(which="remote", includes=args.includes)
+                elif args.local:
+                    _print_avail(which="local", includes=args.includes)
+            except KeyError as err:
+                print(err)
 
     # ------------------------------ about ------------------------------
     elif args.command == "about":
