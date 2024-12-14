@@ -87,6 +87,7 @@ def main():  # noqa: D103
     list_parser = subparsers.add_parser("list", help="List available datasets")
     list_parser.add_argument(
         "includes",
+        nargs="?",
         help="Filter the available datasets by name.",
         default=None,
     )
@@ -173,15 +174,15 @@ def main():  # noqa: D103
 
     # ------------------------------ list ------------------------------
     elif args.command == "list":
-            try:
-                if args.all or (not args.local and not args.remote):
-                    _print_avail(which="all", includes=args.includes)
-                elif args.remote:
-                    _print_avail(which="remote", includes=args.includes)
-                elif args.local:
-                    _print_avail(which="local", includes=args.includes)
-            except KeyError as err:
-                print(err)
+        try:
+            if args.all or (not args.local and not args.remote):
+                _print_avail(which="all", includes=args.includes)
+            elif args.remote:
+                _print_avail(which="remote", includes=args.includes)
+            elif args.local:
+                _print_avail(which="local", includes=args.includes)
+        except KeyError as err:
+            print(err)
 
     # ------------------------------ about ------------------------------
     elif args.command == "about":
