@@ -266,9 +266,9 @@ def _bring(
 
 
 def _print_avail(which: Literal["all", "remote", "local"] = "all", includes: str | None = None) -> None:
-    remote_datasets = sorted(list(_REMOTE_DATASETS.keys()), key=str.lower)
-    local_datasets_ext = sorted(list(_LOCAL_CACHES_EXT.keys()), key=str.lower)
-    local_datasets = sorted(list(_LOCAL_CACHES.keys()), key=str.lower)
+    remote_datasets = sorted(_REMOTE_DATASETS.keys(), key=str.lower)
+    local_datasets_ext = sorted(_LOCAL_CACHES_EXT.keys(), key=str.lower)
+    local_datasets = sorted(_LOCAL_CACHES.keys(), key=str.lower)
 
 
     if includes is not None:

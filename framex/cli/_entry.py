@@ -38,7 +38,7 @@ def main():  # noqa: D103
     get_parser.add_argument(
         "--format",
         "-f",
-        help="Format to save the dataset in. Defaults to csv.",
+        help="Format (`feather`, `parquet`, `csv`, `json`, `ipc`) to save the dataset in.\n Defaults to csv.",
         default="csv",
     )
     get_parser.add_argument(
@@ -70,7 +70,7 @@ def main():  # noqa: D103
     bring_parser.add_argument(
         "--format",
         "-f",
-        help="Format to save the dataset in. Default is csv.",
+        help="Format (`feather`, `parquet`, `csv`, `json`, `ipc`) to save the dataset in.\n Defaults to csv.",
         default="csv",
     )
     bring_parser.add_argument(
@@ -88,7 +88,7 @@ def main():  # noqa: D103
     list_parser.add_argument(
         "includes",
         nargs="?",
-        help="Filter the available datasets by name.",
+        help="available datasets names which includes the given string.",
         default=None,
     )
     group = list_parser.add_mutually_exclusive_group()

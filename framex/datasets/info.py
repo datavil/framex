@@ -37,8 +37,8 @@ def available(
         If the option is not 'remote' or 'local'.
 
     """
-    remote_datasets = sorted(list(_REMOTE_DATASETS.keys()), key=str.lower)
-    local_datasets = sorted(list(_LOCAL_CACHES.keys()), key=str.lower)
+    remote_datasets = sorted(_REMOTE_DATASETS.keys(), key=str.lower)
+    local_datasets = sorted(_LOCAL_CACHES.keys(), key=str.lower)
 
     if includes is not None:
         remote_datasets = [x for x in remote_datasets if includes in x]
