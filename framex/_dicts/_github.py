@@ -7,10 +7,7 @@ from pathlib import Path
 
 import requests
 
-from framex._dicts._constants import _EXTENSION, _LOCAL_DIR
-
-# GitHub API URL for the directory contents
-_API_URL = f"https://api.github.com/repos/datavil/datasets/contents/{_EXTENSION}"
+from framex._dicts._constants import _API_URL, _EXTENSION, _LOCAL_DIR
 
 
 def _get_names(api_url: str) -> dict[str, str]:
@@ -105,7 +102,6 @@ def _cache_or_remote(url: str) -> dict[str, str]:
         _datasets_dict = _get_names(url)
         _save_json(datasets=_datasets_dict)
         # print(f"Created cached datasets at {local_json}")
-
     return _datasets_dict
 
 

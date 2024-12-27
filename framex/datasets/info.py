@@ -4,7 +4,7 @@ from typing import Literal
 
 import polars
 
-from framex._dicts import _LOCAL_CACHES, _REMOTE_DATASETS
+from framex._dicts import _LOCAL_CACHES_MAIN_EXT, _REMOTE_DATASETS
 from framex._dicts._constants import _INFO_FILE
 from framex.utils._exceptions import DatasetNotFoundError
 
@@ -12,7 +12,7 @@ from framex.utils._exceptions import DatasetNotFoundError
 def available(
     includes: str | None = None,
     *,
-    option: str | None = None,
+    option: Literal["remote", "local"] | None = None,
 ) -> dict[str, list[str]]:
     """
     List available datasets.
@@ -38,7 +38,7 @@ def available(
 
     """
     remote_datasets = sorted(_REMOTE_DATASETS.keys(), key=str.lower)
-    local_datasets = sorted(_LOCAL_CACHES.keys(), key=str.lower)
+    local_datasets = sorted(_LOCAL_CACHES_MAIN_EXT.keys(), key=str.lower)
 
     if includes is not None:
         remote_datasets = [x for x in remote_datasets if includes in x]
@@ -83,8 +83,7 @@ def about(
     if row.height == 0:  # no dataset found
         msg = f"Dataset `{name}` not found in datasets_info.csv"
         raise DatasetNotFoundError(msg)
-
-    if mode == "row":  #
+    if mode == "row":
         return row
     elif mode == "print":
         og_name = row.select("source").item().split("/")[-1]

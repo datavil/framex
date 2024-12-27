@@ -6,7 +6,11 @@ from framex._dicts._constants import (
     _REMOTE_DIR_GITHUB,
 )
 from framex._dicts._github import _GITHUB_DATASETS
-from framex._dicts._local import _LOCAL_CACHES, _LOCAL_CACHES_EXT
+from framex._dicts._local import (
+    _LOCAL_CACHES,
+    _LOCAL_CACHES_EXT,
+    _LOCAL_CACHES_MAIN_EXT,
+)
 
 __all__ = [
     "_EXTENSION",
@@ -18,4 +22,5 @@ __all__ = [
     "_REMOTE_DATASETS",
     "_INFO_FILE",
     "_LOCAL_CACHES_EXT",
+    "_LOCAL_CACHES_MAIN_EXT",
 ]

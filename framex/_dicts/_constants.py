@@ -8,3 +8,5 @@ if not _LOCAL_DIR.exists():
 _EXTENSION = "feather"
 _REMOTE_DIR_GITHUB = f"https://github.com/datavil/datasets/raw/main/{_EXTENSION}/"
 _INFO_FILE = "https://github.com/datavil/datasets/raw/main/datasets_info.csv"
+# GitHub API URL for the directory contents
+_API_URL = f"https://api.github.com/repos/datavil/datasets/contents/{_EXTENSION}"
