@@ -2,7 +2,7 @@ import argparse
 import importlib.metadata
 
 from framex.cli._cli import _bring, _get, _print_avail
-from framex.datasets import about, available, load
+from framex.datasets import about, load
 from framex.utils._colors import blue, bold, cyan, red
 from framex.utils._exceptions import (
     DatasetExistsError,
