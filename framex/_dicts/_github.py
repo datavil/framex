@@ -2,10 +2,9 @@ from __future__ import annotations
 
 import json
 import time
-from datetime import datetime
 from pathlib import Path
-
-import requests
+from urllib.request import urlopen
+from urllib.error import HTTPError
 
 from framex._dicts._constants import _API_URL, _EXTENSION, _LOCAL_DIR
 
@@ -24,24 +23,24 @@ def _get_names(api_url: str) -> dict[str, str]:
     dict
         The names of the datasets mapped to their download URLs.
     """
-    response = requests.get(api_url)
+    response = urlopen(api_url)
 
     # Check if the request was successful
-    if response.status_code != 200:
-        print(f"Error: Received status code {response.status_code}")
-        return {}
-
+    if response.status != 200:
+        msg = f"Error: Received status code {response.status_code}"
+        raise HTTPError(msg)
     try:
         # Parse the response as JSON
-        files = response.json()
-    except json.JSONDecodeError:
-        print("Error: Failed to decode JSON response")
-        return {}
+        content = response.read().decode("utf-8")
+        files = json.loads(content)
+    except json.JSONDecodeError as err:
+        msg = "Error: Failed to decode JSON response"
+        raise json.JSONDecodeError(msg) from err
 
     # Check if the response is a list (expected format)
     if not isinstance(files, list):
-        print(f"Error: Expected a list, but got {type(files).__name__}")
-        return {}
+        msg = f"Error: Expected a list, but got {type(files).__name__}"
+        raise TypeError(msg)
 
     # Extract .feather files
     datasets = {
