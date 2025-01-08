@@ -145,9 +145,38 @@ url_pokemon_csv = fx.get_url("pokemon", format="csv")
 
 ### CLI
 
+framex CLI has a slight overhead of around 400 milliseconds due to imports. However, operations still take less than a second, unless bottlenecked by the download speed. 
+
+TO see all the available commands, run:
+``` shell
+fx -h
+```
+
+```
+usage: fx [-h] [--version]
+          {get,bring,about,list,show,describe} ...
+
+Framex CLI
+
+positional arguments:
+  {get,bring,about,list,show,describe}
+    get                 Get dataset(s)
+    bring               Bring dataset(s) from the cache to the  
+                        current working directory or to a       
+                        specified directory.
+    about               Info about dataset(s)
+    list                List available datasets
+    show                Show a preview of a single dataset      
+    describe            Describe (or summarize) a dataset       
+
+options:
+  -h, --help            show this help message and exit
+  --version, -v         Show version
+```
+
 #### get
 
-Get a single dataset:
+Get a single dataset (to the current directory):
 
 ``` shell
 fx get iris
@@ -183,6 +212,19 @@ fx list
 
 this will list all available datasets on the remote server.
 
+
+to get the names of the available datasets that includes "dia"
+``` shell
+fx list dia
+```
+
+``` shell	
+Locally available datasets: (feather, parquet, csv, other)
+
+Remote datasets:
+diamonds
+```
+
 #### about
 
 To get information on a dataset or datasets, run:
@@ -212,3 +254,19 @@ For more parameters
 ``` shell
 fx get --help
 ```
+
+#### bring
+
+Bring a dataset to the current directory from cache:
+
+``` shell
+fx bring iris
+```
+
+or bring multiple datasets:
+
+``` shell
+fx bring iris mpg titanic
+```
+
+which will bring dataset(s) to the current directory from cache directory.
