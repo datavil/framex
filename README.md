@@ -69,9 +69,11 @@ To see the list of available datasets, run:
 fx.available()
 ```
 
+
 ``` python
 {'remote': ['iris', 'mpg', 'netflix', 'starbucks', 'titanic'], 'local': ['titanic']}
 ```
+PS, shorthened for clarity
 
 which returns a dictionary of both **locally** and **remotely** available datasets.
 
