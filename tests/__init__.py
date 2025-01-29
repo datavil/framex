@@ -6,10 +6,10 @@ from tests.test_load import assert_load
 from tests.test_url import test_get_url
 
 __all__ = [
-    "clean",
     "assert_available",
     "assert_load",
+    "clean",
     "test_about",
-    "test_get_url",
     "test_cli",
+    "test_get_url",
 ]

@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING, Callable
 
 from polars import read_ipc, read_parquet, scan_ipc, scan_parquet
 
-from framex._dicts import _DATASETS, _LOCAL_CACHES
+from framex._dicts import _DATASETS, _LOCAL_CACHES, _LOCAL_CACHES_MAIN_EXT
 from framex._dicts._constants import _EXTENSION, _LOCAL_DIR
 from framex.utils._exceptions import DatasetNotFoundError
 
@@ -58,8 +58,9 @@ def load(
     # local_path = _LOCAL_CACHES.get(name)
     # load the dataset
     if check_local:
-        if name in _LOCAL_CACHES:
-            frame = loader(_LOCAL_CACHES.get(name), memory_map=False)
+        # ! breaks if is available in a different format
+        if name in _LOCAL_CACHES_MAIN_EXT:
+            frame = loader(_LOCAL_CACHES_MAIN_EXT.get(name), memory_map=False)
         else:
             frame = loader(_DATASETS.get(name), memory_map=False)
     else:
@@ -86,3 +87,4 @@ def load(
                 frame.write_ipc(path, compression="zstd")
 
     return frame
+
