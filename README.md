@@ -5,7 +5,7 @@ A [DataVil](https://github.com/datavil) project.
 
 [![GitHub](https://img.shields.io/badge/GitHub-100000?style=flat&logo=github&logoColor=white)](https://github.com/DataVil/framex) [![PyPI](https://img.shields.io/pypi/v/framex?color=blue)](https://pypi.org/project/framex/)
 
-**FrameX** is a light-weight, dataset fetching library for fast **prototyping**, **tutorial creation**, and **experimenting**.
+**FrameX** is a light-weight, dataset fetching library for fast **prototyping**, **tutorial creation**, and **experimenting**. FrameX has currently over **80** datasets available.
 
 Built on top of [Polars](https://pola.rs/).
 
@@ -151,7 +151,7 @@ framex CLI has a slight overhead of around 400 milliseconds due to imports. Howe
 
 TO see all the available commands, run:
 ``` shell
-fx -h #
+fx -h
 ```
 
 ![Banner](https://github.com/datavil/framex/blob/master/.github/mainCLI.png?raw=true)
