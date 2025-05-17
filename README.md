@@ -151,12 +151,11 @@ framex CLI has a slight overhead of around 400 milliseconds due to imports. Howe
 
 TO see all the available commands, run:
 ``` shell
-fx -h
+fx -h #
 ```
 
-```
 ![Banner](https://github.com/datavil/framex/blob/master/.github/mainCLI.png?raw=true)
-```
+
 
 #### get
 
