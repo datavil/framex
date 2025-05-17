@@ -1,31 +1,43 @@
 import argparse
 import importlib.metadata
 
+from rich_argparse import RichHelpFormatter
+
 from framex.cli._cli import _bring, _get, _print_avail
 from framex.datasets import about, load
-from framex.utils._colors import blue, bold, cyan, red
+from framex.utils._colors import bold, red
 from framex.utils._exceptions import (
     DatasetExistsError,
     DatasetNotFoundError,
     InvalidFormatError,
 )
 
+RichHelpFormatter.styles["argparse.args"] = "bold dodger_blue1"
+RichHelpFormatter.styles["argparse.groups"] = "bold deep_pink2"
+RichHelpFormatter.styles["argparse.help"] = "grey82"
+RichHelpFormatter.styles["argparse.metavar"] = "orange_red1"
+RichHelpFormatter.styles["argparse.prog"] = "bold grey85"
+RichHelpFormatter.styles["argparse.syntax"] = "bold bright_white"
+RichHelpFormatter.styles["argparse.text"] = "bold grey70"
+RichHelpFormatter.styles["argparse.default"] = "italic"
+
 
 def main():  # noqa: D103
-    parser = argparse.ArgumentParser(description=cyan("Framex CLI"))
+    __version__ = importlib.metadata.version("framex")
+    parser = argparse.ArgumentParser(description=f"Framex CLI {__version__}", formatter_class=RichHelpFormatter)
     # --version
     parser.add_argument(
         "--version",
         "-v",
         action="version",
-        version=f"framex {blue(importlib.metadata.version('framex'))}",
+        version=f"Framex CLI {__version__}",
         help="Show version",
     )
     # init subparsers
     subparsers = parser.add_subparsers(dest="command")
 
     # ------------------------------"get" subparsers------------------------------
-    get_parser = subparsers.add_parser("get", help="Get dataset(s)")
+    get_parser = subparsers.add_parser("get", help="Get dataset(s)", formatter_class=RichHelpFormatter)
     get_parser.add_argument(
         "datasets", nargs="+", help="Dataset name(s), accepts multiple names"
     )
@@ -57,6 +69,7 @@ def main():  # noqa: D103
     bring_parser = subparsers.add_parser(
         "bring",
         help="Bring dataset(s) from the cache to the current working directory or to a specified directory.",
+        formatter_class=RichHelpFormatter
     )
     bring_parser.add_argument(
         "datasets", nargs="+", help="Dataset name(s), accepts multiple names"
@@ -81,10 +94,10 @@ def main():  # noqa: D103
         default=False,
     )
     # ------------------------------"about" subparsers------------------------------
-    info_parser = subparsers.add_parser("about", help="Info about dataset(s)")
+    info_parser = subparsers.add_parser("about", help="Info about dataset(s)", formatter_class=RichHelpFormatter)
     info_parser.add_argument("datasets", nargs="+", help="Info about dataset(s)")
     # "list" subparsers
-    list_parser = subparsers.add_parser("list", help="List available datasets")
+    list_parser = subparsers.add_parser("list", help="List available datasets", formatter_class=RichHelpFormatter)
     list_parser.add_argument(
         "includes",
         nargs="?",
@@ -115,12 +128,12 @@ def main():  # noqa: D103
     )
     # ------------------------------"show" subparsers------------------------------
     show_parser = subparsers.add_parser(
-        "show", help="Show a preview of a single dataset"
+        "show", help="Show a preview of a single dataset", formatter_class=RichHelpFormatter
     )
     show_parser.add_argument("dataset", help="Dataset name")
     # ------------------------------"describe" subparsers------------------------------
     describe_parser = subparsers.add_parser(
-        "describe", help="Describe (or summarize) a dataset"
+        "describe", help="Describe (or summarize) a dataset", formatter_class=RichHelpFormatter
     )
     describe_parser.add_argument("dataset", help="Dataset name")
 
