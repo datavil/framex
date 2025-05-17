@@ -155,25 +155,7 @@ fx -h
 ```
 
 ```
-usage: fx [-h] [--version]
-          {get,bring,about,list,show,describe} ...
-
-Framex CLI
-
-positional arguments:
-  {get,bring,about,list,show,describe}
-    get                 Get dataset(s)
-    bring               Bring dataset(s) from the cache to the  
-                        current working directory or to a       
-                        specified directory.
-    about               Info about dataset(s)
-    list                List available datasets
-    show                Show a preview of a single dataset      
-    describe            Describe (or summarize) a dataset       
-
-options:
-  -h, --help            show this help message and exit
-  --version, -v         Show version
+![Banner](https://github.com/datavil/framex/blob/master/.github/mainCLI.png?raw=true)
 ```
 
 #### get
