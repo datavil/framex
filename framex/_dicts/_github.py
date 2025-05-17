@@ -3,8 +3,8 @@ from __future__ import annotations
 import json
 import time
 from pathlib import Path
-from urllib.request import urlopen
 from urllib.error import HTTPError
+from urllib.request import urlopen
 
 from framex._dicts._constants import _API_URL, _EXTENSION, _LOCAL_DIR
 

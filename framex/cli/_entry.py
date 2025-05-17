@@ -141,7 +141,6 @@ def main():  # noqa: D103
     args = parser.parse_args()
 
     # EVALUATE ARGS ------------------------------
-    # Subcommand: list
     if args.command is None:
         parser.print_help()  # Show help if no command is provided
         return
