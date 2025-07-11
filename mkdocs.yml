@@ -1,0 +1,77 @@
+site_name: FRAMEX
+docs_dir: documentation
+site_dir: docs 
+theme:
+  name: material
+  font:
+    code: JetBrains Mono
+    size: 2
+  features:
+    #- toc.integrate
+    - navigation.top
+    - content.code.copy
+    - navigation.sections
+    - navigation.tabs
+    - navigation.indexes
+    - toc.follow
+  palette:
+    # Palette toggle for light mode
+    
+    - scheme: default
+      primary: green
+      accent: teal
+      toggle:
+        icon: material/brightness-7 
+        name: Switch to dark mode
+        
+    # Palette toggle for dark mode
+    - scheme: slate
+      primary: red
+      accent: purple
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+      
+  extensions:
+    - toc:
+        permalink: true
+        toc_depth: 3
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: numpy
+            show_signature: true
+            show_signature_annotations: true
+            show_source: false
+            show_submodules: true
+            separate_signature: true
+            show_root_toc_entry: false
+            heading_level: 1
+            members_order: source
+            show_bases: true
+            show_root_heading: true
+            
+
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - pymdownx.tabbed
+  - pymdownx.snippets
+
+nav:
+  - Installation: installation.md
+  - API:
+    - load: Python/load.md
+    - about: Python/about.md
+    - available: Python/available.md
+    - get_url: Python/get_url.md
+    
