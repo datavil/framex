@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import shutil
 from pathlib import Path
-from typing import TYPE_CHECKING, Callable, Literal
+from typing import TYPE_CHECKING, Literal
 
 from polars import read_ipc, read_parquet
 
@@ -34,6 +34,8 @@ red: errors
 """
 
 if TYPE_CHECKING:
+    from collections.abc import Callable
+
     from polars import DataFrame
 
 
@@ -328,7 +330,4 @@ def _print_avail(which: Literal["all", "remote", "local"] = "all", includes: str
 
 
 if __name__ == "__main__":
-    new_dir = Path("../..").resolve()
-    for p in new_dir.glob("iris.*"):
-        print(type(new_dir.glob("irgdgdis.*")))
-        print(p.name)
+    pass

@@ -13,11 +13,11 @@ from framex.utils._colors import (
 __all__ = [
     "black",
     "blue",
+    "bold",
     "cyan",
     "green",
     "magenta",
     "red",
     "white",
     "yellow",
-    "bold",
 ]

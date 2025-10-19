@@ -8,7 +8,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.8"
-polars = "^1.7.1"
+polars = ">=1.7.1,<2.0.0"
 rich-argparse = "^1.7.0"
 
 [tool.poetry.group.dev.dependencies]
