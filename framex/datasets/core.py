@@ -41,6 +41,32 @@ def load(
     Returns
     -------
     polars.DataFrame or polars.LazyFrame
+
+    Examples
+    --------
+    .. jupyter-execute ::
+
+        import framex as fx
+
+        iris = fx.load('iris')
+        iris.head()
+    
+    Which is equivalent to direct imports.
+
+    .. jupyter-execute ::
+        
+        from framex import iris
+
+        iris.head()
+
+    Any datasets available can be loaded via direct imports.
+
+
+    .. jupyter-execute ::
+        
+        import framex as fx
+        
+        fx.available()
     """
     # select the function to load the dataset
     if _EXTENSION == "parquet":

@@ -16,6 +16,20 @@ ruff = "^0.6.1"
 mypy = "^1.11.1"
 ipykernel = "^6.29.5"
 
+
+[tool.poetry.group.docs.dependencies]
+sphinx = {version=">=8.0.0", python = ">=3.11"} 
+pydata-sphinx-theme = {version="^0.16.1", python = ">=3.11"}
+jupyter-sphinx = {version="^0.5.3", python = ">=3.11"} 
+ipython = [
+    {version = "9.10.0", python = ">=3.11,<3.12"},
+    {version = "^9.11.0", python = ">=3.12"}
+]
+furo = {version="^2025.12.19", python = ">=3.11"}
+sphinx-copybutton = {version="^0.5.2", python = ">=3.11"} 
+sphinx-design = {version = "^0.7.0", python = ">=3.11"}
+sphinxcontrib-autoprogram = "^0.1.9"
+
 [tool.poetry.scripts]
 fx = "framex.cli._entry:main"
 

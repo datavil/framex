@@ -11,6 +11,7 @@ from framex.utils._exceptions import (
     DatasetNotFoundError,
     InvalidFormatError,
 )
+import sys
 
 RichHelpFormatter.styles["argparse.args"] = "bold dodger_blue1"
 RichHelpFormatter.styles["argparse.groups"] = "bold deep_pink2"
@@ -22,9 +23,18 @@ RichHelpFormatter.styles["argparse.text"] = "bold grey70"
 RichHelpFormatter.styles["argparse.default"] = "italic"
 
 
-def main():  # noqa: D103
+def get_parser():  # noqa: D103
     __version__ = importlib.metadata.version("framex")
-    parser = argparse.ArgumentParser(description=f"Framex CLI {__version__}", formatter_class=RichHelpFormatter)
+    # if Sphinx is running the code
+    is_sphinx = "sphinx" in sys.modules or "sphinxcontrib.autoprogram" in sys.modules
+    print(is_sphinx)
+    if is_sphinx:
+
+        formatter = argparse.HelpFormatter
+    else:
+        formatter = RichHelpFormatter
+    parser = argparse.ArgumentParser(description=f"Framex CLI {__version__}", formatter_class=formatter)
+
     # --version
     parser.add_argument(
         "--version",
@@ -37,7 +47,7 @@ def main():  # noqa: D103
     subparsers = parser.add_subparsers(dest="command")
 
     # ------------------------------"get" subparsers------------------------------
-    get_parser = subparsers.add_parser("get", help="Get dataset(s)", formatter_class=RichHelpFormatter)
+    get_parser = subparsers.add_parser("get", help="Get dataset(s)", formatter_class=formatter)
     get_parser.add_argument(
         "datasets", nargs="+", help="Dataset name(s), accepts multiple names"
     )
@@ -69,7 +79,7 @@ def main():  # noqa: D103
     bring_parser = subparsers.add_parser(
         "bring",
         help="Bring dataset(s) from the cache to the current working directory or to a specified directory.",
-        formatter_class=RichHelpFormatter
+        formatter_class=formatter
     )
     bring_parser.add_argument(
         "datasets", nargs="+", help="Dataset name(s), accepts multiple names"
@@ -94,10 +104,10 @@ def main():  # noqa: D103
         default=False,
     )
     # ------------------------------"about" subparsers------------------------------
-    info_parser = subparsers.add_parser("about", help="Info about dataset(s)", formatter_class=RichHelpFormatter)
+    info_parser = subparsers.add_parser("about", help="Info about dataset(s)", formatter_class=formatter)
     info_parser.add_argument("datasets", nargs="+", help="Info about dataset(s)")
     # "list" subparsers
-    list_parser = subparsers.add_parser("list", help="List available datasets", formatter_class=RichHelpFormatter)
+    list_parser = subparsers.add_parser("list", help="List available datasets", formatter_class=formatter)
     list_parser.add_argument(
         "includes",
         nargs="?",
@@ -128,15 +138,19 @@ def main():  # noqa: D103
     )
     # ------------------------------"show" subparsers------------------------------
     show_parser = subparsers.add_parser(
-        "show", help="Show a preview of a single dataset", formatter_class=RichHelpFormatter
+        "show", help="Show a preview of a single dataset", formatter_class=formatter
     )
     show_parser.add_argument("dataset", help="Dataset name")
     # ------------------------------"describe" subparsers------------------------------
     describe_parser = subparsers.add_parser(
-        "describe", help="Describe (or summarize) a dataset", formatter_class=RichHelpFormatter
+        "describe", help="Describe (or summarize) a dataset", formatter_class=formatter
     )
     describe_parser.add_argument("dataset", help="Dataset name")
 
+    return parser
+
+def main():
+    parser = get_parser()
     # PARSE ALL ARGS ------------------------------
     args = parser.parse_args()
 
@@ -227,8 +241,8 @@ def main():  # noqa: D103
         msg = red(f"Invalid command: `{bold(args.command)}`")
         raise ValueError(msg)
 
+    if args.command is None:
+        parser.print_help()
+        return
+
     return
-
-
-if __name__ == "__main__":
-    pass

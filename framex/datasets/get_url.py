@@ -18,14 +18,22 @@ def get_url(
     name : str
         Name of the dataset.
 
-    format : Literal["csv", "parquet", "feather"], optional
+    format : {'csv', 'parquet', 'feather'}, optional
         Format of the dataset.
-        Default is "parquet"
+        Default is 'parquet'
 
     Returns
     -------
     str
         URL of the dataset.
+
+    Examples
+    --------
+    .. jupyter-execute ::
+    
+        import framex as fx
+
+        fx.get_url('diamonds')
     """
     if name not in _DATASETS:
         msg = red(f"Dataset {name} not found.")

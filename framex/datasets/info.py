@@ -13,7 +13,7 @@ def available(
     includes: str | None = None,
     *,
     option: Literal["remote", "local"] | None = None,
-) -> dict[str, list[str]]:
+) -> dict[str, list[str]] | list[str]:
     """
     List available datasets.
 
@@ -23,7 +23,7 @@ def available(
         A string to filter the available datasets.
         Default is None
 
-    option : str, optional {"remote", "local"}
+    option : str, optional {'remote', 'local'}
         The option to list available datasets.
         Default is None
 
@@ -36,6 +36,32 @@ def available(
     ValueError
         If the option is not 'remote' or 'local'.
 
+    Examples
+    --------
+    Finding datasets which includes the given string in its name.
+
+    .. jupyter-execute ::
+        
+        import framex as fx
+        
+        fx.available('dia')
+
+    To check only locally cached datasets.
+
+    .. jupyter-execute ::
+        
+        import framex as fx
+        
+        fx.available(option='local') # option='remote' for remote only datasets
+
+    To see all the datasets available, local or remote.
+    
+    .. jupyter-execute ::
+        
+        import framex as fx
+        
+        fx.available()
+
     """
     remote_datasets = sorted(_REMOTE_DATASETS.keys(), key=str.lower)
     local_datasets = sorted(_LOCAL_CACHES_MAIN_EXT.keys(), key=str.lower)
@@ -43,16 +69,17 @@ def available(
     if includes is not None:
         remote_datasets = [x for x in remote_datasets if includes in x]
         local_datasets = [x for x in local_datasets if includes in x]
+    
 
-    if option is None:
-        return {
+    both = {
             "remote": list(remote_datasets),
             "local": list(local_datasets),
         }
-    elif option == "remote":
-        return {option: list(remote_datasets)}
-    elif option == "local":
-        return {option: list(local_datasets)}
+
+    if option is None:
+        return both
+    elif option in ("remote","local"):
+        return both.get(option)
     else:
         msg = "Invalid option. Please use either 'remote' or 'local'."
         raise ValueError(msg)
@@ -68,15 +95,34 @@ def about(
     ----------
     name : str
         Name of the dataset.
-    mode : Literal["print", "row"]
+    mode : {'print', 'row'}
         The mode to print information.
-        Default is "print"
+        Default is 'print'
             print: prints the information
             row: returns the information as a single row polars.DataFrame
 
     Returns
     -------
     None
+
+
+    Examples
+    --------
+    In default 'print' mode.
+
+    .. jupyter-execute ::
+
+        import framex as fx
+
+        fx.about("mpg")
+
+    In 'row' mode.
+
+    .. jupyter-execute ::
+
+        import framex as fx
+
+        fx.about("mpg",mode='row')
     """
     df = polars.read_csv(_INFO_FILE)
     row = df.filter(polars.col("name") == name)

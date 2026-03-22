@@ -7,3 +7,6 @@ dist/*
 *tar.gz
 *.csv
 *.ipynb
+jupyter_execute
+sds.txt
+.vscode
