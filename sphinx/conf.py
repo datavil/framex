@@ -125,9 +125,9 @@ html_theme_options = {
 }
 html_favicon = "_static/datavil.svg"
 
-# html_sidebars = {
-#     "**": [],  # no search, links, etc. on any page
-# }
+html_sidebars = {
+    "**": [],  # no search, links, etc. on any page
+}
 
 # Napoleon settings
 napoleon_google_docstring = True
