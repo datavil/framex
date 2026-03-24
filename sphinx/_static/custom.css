@@ -20,7 +20,7 @@ tt,
 
 code.literal,
 tt.literal {
-    color: #AF1740;
+    color: #0075ff;
 }
 
 a code.literal,
@@ -127,7 +127,7 @@ dt.sig {
 
 /* Type hints in function signatures */
 .sig .n {
-    color: #640D5F;
+    color: #e92ffd;
     font-weight: 500;
 }
 
@@ -197,4 +197,17 @@ section[id] > pre {
 .bd-sidebar-primary {
     max-width: 200px;  /* default is ~280px */
     min-width: 150px;
+}
+
+/* target autoprogram's code blocks */
+.highlight-console .highlight .go {
+    color: #0075ff !important;
+}
+
+.sig-name.descname .pre {
+    color: #ff0000 !important;
+}
+
+dl.std.option {
+    margin-bottom: 0 !important;
 }

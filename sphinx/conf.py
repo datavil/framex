@@ -17,6 +17,8 @@ rst_prolog = """
 """
 rst_epilog = f".. |version| replace:: :gray:`v{release}`"
 
+os.environ["SPHINX_BUILD"] = "1"
+
 
 class BetterMock(mock.MagicMock):
     def __add__(self, other):
@@ -42,9 +44,7 @@ class BetterMock(mock.MagicMock):
 # BetterMock.__bool__ = lambda self: True
 
 autodoc_mock_imports = [
-
     "polars",
-
 ]
 
 # -- Project information -----------------------------------------------------

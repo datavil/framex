@@ -32,6 +32,7 @@ sphinxcontrib-autoprogram = "^0.1.9"
 
 [tool.poetry.scripts]
 fx = "framex.cli._entry:main"
+fxtest = "framex.cli._entry:main2"
 
 [build-system]
 requires = ["poetry-core"]

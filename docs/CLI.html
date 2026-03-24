@@ -35,7 +35,7 @@
     <link rel="stylesheet" type="text/css" href="_static/thebelab.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=7d54a2f5" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=4bd4a6bc" />
   
   <!-- So that users can add custom icons -->
   <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
@@ -365,10 +365,11 @@
                   
   <section id="cli">
 <h1>CLI<a class="headerlink" href="#cli" title="Link to this heading">#</a></h1>
+<p>Use <cite>fx</cite>  or <cite>fx &lt;command&gt; –help</cite> on your terminal for more details.</p>
 <section id="fx">
 <h2>fx<a class="headerlink" href="#fx" title="Link to this heading">#</a></h2>
 <p>Framex CLI 1.0.3</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">[1;34musage: [0m[1;35mfx[0m [[32m-h[0m] [[36m--version[0m] [32m{get,bring,about,list,show,describe} ...[0m</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">usage: fx [-h] [--version] {get,bring,about,list,show,describe} ...</span>
 </pre></div>
 </div>
 <dl class="std option">
@@ -385,7 +386,7 @@
 
 <section id="fx-about">
 <h3>fx about<a class="headerlink" href="#fx-about" title="Link to this heading">#</a></h3>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">[1;34musage: [0m[1;35mfx about[0m [[32m-h[0m] [32mdatasets [datasets ...][0m</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">usage: fx about [-h] datasets [datasets ...]</span>
 </pre></div>
 </div>
 <dl class="std option">
@@ -403,7 +404,7 @@
 </section>
 <section id="fx-bring">
 <h3>fx bring<a class="headerlink" href="#fx-bring" title="Link to this heading">#</a></h3>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">[1;34musage: [0m[1;35mfx bring[0m [[32m-h[0m] [[36m--dir [33mDIR[0m] [[36m--format [33mFORMAT[0m] [[36m--overwrite[0m] [32mdatasets [datasets ...][0m</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">usage: fx bring [-h] [--dir DIR] [--format FORMAT] [--overwrite] datasets [datasets ...]</span>
 </pre></div>
 </div>
 <dl class="std option">
@@ -440,7 +441,7 @@
 </section>
 <section id="fx-describe">
 <h3>fx describe<a class="headerlink" href="#fx-describe" title="Link to this heading">#</a></h3>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">[1;34musage: [0m[1;35mfx describe[0m [[32m-h[0m] [32mdataset[0m</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">usage: fx describe [-h] dataset</span>
 </pre></div>
 </div>
 <dl class="std option">
@@ -458,7 +459,7 @@
 </section>
 <section id="fx-get">
 <h3>fx get<a class="headerlink" href="#fx-get" title="Link to this heading">#</a></h3>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">[1;34musage: [0m[1;35mfx get[0m [[32m-h[0m] [[36m--dir [33mDIR[0m] [[36m--format [33mFORMAT[0m] [[36m--overwrite[0m] [[36m--cache[0m] [32mdatasets [datasets ...][0m</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">usage: fx get [-h] [--dir DIR] [--format FORMAT] [--overwrite] [--cache] datasets [datasets ...]</span>
 </pre></div>
 </div>
 <dl class="std option">
@@ -501,7 +502,7 @@
 </section>
 <section id="fx-list">
 <h3>fx list<a class="headerlink" href="#fx-list" title="Link to this heading">#</a></h3>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">[1;34musage: [0m[1;35mfx list[0m [[32m-h[0m] [[36m--local[0m | [36m--remote[0m | [36m--all[0m] [32m[includes][0m</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">usage: fx list [-h] [--local | --remote | --all] [includes]</span>
 </pre></div>
 </div>
 <dl class="std option">
@@ -537,7 +538,7 @@
 </section>
 <section id="fx-show">
 <h3>fx show<a class="headerlink" href="#fx-show" title="Link to this heading">#</a></h3>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">[1;34musage: [0m[1;35mfx show[0m [[32m-h[0m] [32mdataset[0m</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">usage: fx show [-h] dataset</span>
 </pre></div>
 </div>
 <dl class="std option">

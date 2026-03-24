@@ -2,13 +2,29 @@
 API Reference
 =============
 
+
+Fetching Datasets
+-----------------
 .. autosummary::
    :toctree: generated
    :nosignatures:
 
-   ~framex.load <load>
-   ~framex.get_url
-   ~framex.available
-   ~framex.about
+   ~framex.load
 
+Datasets
+--------
+.. autosummary::
+   :toctree: generated
+   :nosignatures:
+
+   ~framex.available
+
+Information
+-----------
+.. autosummary::
+   :toctree: generated
+   :nosignatures:
+
+   ~framex.get_url
+   ~framex.about
 
