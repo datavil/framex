@@ -94,6 +94,8 @@ html_theme_options = {
     "logo": {
         "text": "Framex",
     },
+    "default_mode": "light",
+    "light_dark_mode_buttons": ["light", "dark"],
     "icon_links": [
         {
             "name": "GitHub",

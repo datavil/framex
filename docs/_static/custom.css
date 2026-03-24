@@ -211,3 +211,9 @@ section[id] > pre {
 dl.std.option {
     margin-bottom: 0 !important;
 }
+
+table.dataframe {
+    margin-left: 0 !important;
+    margin-bottom: 1.5em !important;
+    margin-right: auto;
+}

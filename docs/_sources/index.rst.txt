@@ -1,9 +1,10 @@
-framex |version|
+Framex |version|
 ====================
 
 |pypi| |license| |polars|
 
-
+Framex is a light-weight dataset fetching library and CLI tool. 
+It is built with minimal dependency requirements and a simple syntax, minimizing overhead and maximizing convenience.
 
 Installation
 --------------
@@ -38,6 +39,41 @@ Installation
    API
    CLI
 
+
+
+Getting Started
+---------------
+Framex allows the direct imports of available datasets.
+
+.. jupyter-execute::
+
+   from framex import iris
+
+   iris.head()
+
+or loading it using the functional approach.
+
+.. jupyter-execute::
+
+   import framex as fx 
+
+   mpg = fx.load("mpg")
+   mpg.head()
+
+To see (all/local/remote) available datasets.
+The function also accepts positional "includes" argument for searching.
+
+.. jupyter-execute::
+
+   import framex as fx
+
+   both = fx.available()
+   local = fx.available(option="local")
+   remote = fx.available(option="remote") 
+
+   fx.available("st")
+
+
 .. |pypi| image:: https://img.shields.io/pypi/v/framex?color=377eb8
    :target: https://pypi.org/project/framex/
    :alt: PyPI version
@@ -49,7 +85,3 @@ Installation
 .. |polars| image:: https://img.shields.io/badge/Powered%20by-Polars-377eb8?logo=polars&logoColor=white
    :target: https://www.pola.rs/
    :alt: Powered by Polars
-
-.. |letsplot| image:: https://img.shields.io/badge/Graphics-Lets--Plot-FF00CC?logo=jetbrains&logoColor=white
-   :target: https://lets-plot.org/
-   :alt: Built with Lets-Plot

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>framex v1.0.3</title>
+    <title>Framex v1.0.3</title>
   
   
   
@@ -35,7 +35,7 @@
     <link rel="stylesheet" type="text/css" href="_static/thebelab.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=4bd4a6bc" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=128f072c" />
   
   <!-- So that users can add custom icons -->
   <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
@@ -342,8 +342,10 @@
                 <article class="bd-article">
                   
   <section id="framex-version">
-<h1>framex <span class="gray">v1.0.3</span><a class="headerlink" href="#framex-version" title="Link to this heading">#</a></h1>
+<h1>Framex <span class="gray">v1.0.3</span><a class="headerlink" href="#framex-version" title="Link to this heading">#</a></h1>
 <p><a class="reference external" href="https://pypi.org/project/framex/"><img alt="PyPI version" src="https://img.shields.io/pypi/v/framex?color=377eb8" /></a> <a class="reference external" href="https://opensource.org/licenses/Apache-2.0"><img alt="License: Apache 2.0" src="https://img.shields.io/badge/License-Apache%202.0-ff0000" /></a> <a class="reference external" href="https://www.pola.rs/"><img alt="Powered by Polars" src="https://img.shields.io/badge/Powered%20by-Polars-377eb8?logo=polars&amp;logoColor=white" /></a></p>
+<p>Framex is a light-weight dataset fetching library and CLI tool.
+It is built with minimal dependency requirements and a simple syntax, minimizing overhead and maximizing convenience.</p>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
 <div class="sd-tab-set docutils">
@@ -372,6 +374,78 @@ poetry</label><div class="sd-tab-content docutils">
 <div class="toctree-wrapper compound">
 </div>
 </section>
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading">#</a></h2>
+<p>Framex allows the direct imports of available datasets.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">framex</span><span class="w"> </span><span class="kn">import</span> <span class="n">iris</span>
+
+<span class="n">iris</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (5, 5)</small><table border="1" class="dataframe"><thead><tr><th>sepal_length</th><th>sepal_width</th><th>petal_length</th><th>petal_width</th><th>species</th></tr><tr><td>f64</td><td>f64</td><td>f64</td><td>f64</td><td>str</td></tr></thead><tbody><tr><td>5.1</td><td>3.5</td><td>1.4</td><td>0.2</td><td>&quot;setosa&quot;</td></tr><tr><td>4.9</td><td>3.0</td><td>1.4</td><td>0.2</td><td>&quot;setosa&quot;</td></tr><tr><td>4.7</td><td>3.2</td><td>1.3</td><td>0.2</td><td>&quot;setosa&quot;</td></tr><tr><td>4.6</td><td>3.1</td><td>1.5</td><td>0.2</td><td>&quot;setosa&quot;</td></tr><tr><td>5.0</td><td>3.6</td><td>1.4</td><td>0.2</td><td>&quot;setosa&quot;</td></tr></tbody></table></div></div></div>
+</div>
+<p>or loading it using the functional approach.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">framex</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">fx</span>
+
+<span class="n">mpg</span> <span class="o">=</span> <span class="n">fx</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;mpg&quot;</span><span class="p">)</span>
+<span class="n">mpg</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div><style>
+.dataframe > thead > tr,
+.dataframe > tbody > tr {
+  text-align: right;
+  white-space: pre-wrap;
+}
+</style>
+<small>shape: (5, 9)</small><table border="1" class="dataframe"><thead><tr><th>mpg</th><th>cylinders</th><th>displacement</th><th>horsepower</th><th>weight</th><th>acceleration</th><th>model year</th><th>origin</th><th>car name</th></tr><tr><td>f64</td><td>i64</td><td>f64</td><td>str</td><td>i64</td><td>f64</td><td>i64</td><td>i64</td><td>str</td></tr></thead><tbody><tr><td>18.0</td><td>8</td><td>307.0</td><td>&quot;130&quot;</td><td>3504</td><td>12.0</td><td>70</td><td>1</td><td>&quot;chevrolet chevelle malibu&quot;</td></tr><tr><td>15.0</td><td>8</td><td>350.0</td><td>&quot;165&quot;</td><td>3693</td><td>11.5</td><td>70</td><td>1</td><td>&quot;buick skylark 320&quot;</td></tr><tr><td>18.0</td><td>8</td><td>318.0</td><td>&quot;150&quot;</td><td>3436</td><td>11.0</td><td>70</td><td>1</td><td>&quot;plymouth satellite&quot;</td></tr><tr><td>16.0</td><td>8</td><td>304.0</td><td>&quot;150&quot;</td><td>3433</td><td>12.0</td><td>70</td><td>1</td><td>&quot;amc rebel sst&quot;</td></tr><tr><td>17.0</td><td>8</td><td>302.0</td><td>&quot;140&quot;</td><td>3449</td><td>10.5</td><td>70</td><td>1</td><td>&quot;ford torino&quot;</td></tr></tbody></table></div></div></div>
+</div>
+<p>To see (all/local/remote) available datasets.
+The function also accepts positional “includes” argument for searching.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">framex</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">fx</span>
+
+<span class="n">both</span> <span class="o">=</span> <span class="n">fx</span><span class="o">.</span><span class="n">available</span><span class="p">()</span>
+<span class="n">local</span> <span class="o">=</span> <span class="n">fx</span><span class="o">.</span><span class="n">available</span><span class="p">(</span><span class="n">option</span><span class="o">=</span><span class="s2">&quot;local&quot;</span><span class="p">)</span>
+<span class="n">remote</span> <span class="o">=</span> <span class="n">fx</span><span class="o">.</span><span class="n">available</span><span class="p">(</span><span class="n">option</span><span class="o">=</span><span class="s2">&quot;remote&quot;</span><span class="p">)</span>
+
+<span class="n">fx</span><span class="o">.</span><span class="n">available</span><span class="p">(</span><span class="s2">&quot;st&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>{&#39;remote&#39;: [&#39;Arrests&#39;,
+  &#39;BirdNest&#39;,
+  &#39;CollegeDistance&#39;,
+  &#39;constants&#39;,
+  &#39;covid_testing&#39;,
+  &#39;Gestation&#39;,
+  &#39;starbucks&#39;,
+  &#39;stars&#39;,
+  &#39;storms&#39;,
+  &#39;usa_states&#39;],
+ &#39;local&#39;: []}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 </section>
 
 
@@ -398,6 +472,7 @@ poetry</label><div class="sd-tab-content docutils">
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">Installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started">Getting Started</a></li>
 </ul>
   </nav></div>
 
