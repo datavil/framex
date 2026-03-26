@@ -1,5 +1,5 @@
-![Banner](https://github.com/datavil/framex/blob/master/.github/framex_banner_narrower.png?raw=true)
-A [DataVil](https://github.com/datavil) project.
+[![Banner](https://github.com/datavil/framex/blob/master/.github/framex_banner_narrower.png?raw=true)](https://framex.datavil.org)
+A [Datavil](https://datavil.org) project.
 
 # FrameX
 
@@ -7,7 +7,11 @@ A [DataVil](https://github.com/datavil) project.
 
 **FrameX** is a light-weight, dataset fetching library for fast **prototyping**, **tutorial creation**, and **experimenting**. FrameX has currently over **80** datasets available.
 
+
 Built on top of [Polars](https://pola.rs/).
+
+
+
 
 ## Installation
 
@@ -29,6 +33,12 @@ import framex as fx
 
 ``` python
 iris = fx.load("iris")
+```
+
+is equivalent to
+
+``` python
+from framex import iris
 ```
 
 which returns a [**polars DataFrame**](https://docs.pola.rs/api/python/stable/reference/dataframe/index.html)\
