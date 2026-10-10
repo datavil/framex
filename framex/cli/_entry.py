@@ -23,13 +23,16 @@ RichHelpFormatter.styles["argparse.syntax"] = "bold bright_white"
 RichHelpFormatter.styles["argparse.text"] = "bold grey70"
 RichHelpFormatter.styles["argparse.default"] = "italic"
 
+# `color` was added to argparse in Python 3.14
+_COLOR_KWARGS = {"color": False} if sys.version_info >= (3, 14) else {}
+
 
 
 def get_parser():
     __version__ = importlib.metadata.version("framex")
     formatter = RichHelpFormatter
     parser = argparse.ArgumentParser(
-        description=f"Framex CLI {__version__}", formatter_class=formatter, color=False,
+        description=f"Framex CLI {__version__}", formatter_class=formatter, **_COLOR_KWARGS,
     )
 
     # --version
@@ -156,7 +159,7 @@ def get_parser_no_color():
     __version__ = importlib.metadata.version("framex")
     formatter = argparse.HelpFormatter
     parser = argparse.ArgumentParser(
-        description=f"Framex CLI {__version__}", formatter_class=formatter, color=False,
+        description=f"Framex CLI {__version__}", formatter_class=formatter, **_COLOR_KWARGS,
     )
 
     # --version
