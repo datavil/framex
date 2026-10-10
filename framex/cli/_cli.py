@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+__lazy_modules__ = ["polars"]
+
 import shutil
 from pathlib import Path
 from typing import TYPE_CHECKING, Literal

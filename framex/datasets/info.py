@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+__lazy_modules__ = ["polars"]
+
 from typing import Literal
 
 import polars

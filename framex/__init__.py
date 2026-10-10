@@ -1,3 +1,5 @@
+__lazy_modules__ = ["polars"]
+
 import importlib.metadata
 
 from framex.datasets import about, available, get_url, load
